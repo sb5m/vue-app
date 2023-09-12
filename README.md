@@ -1,5 +1,7 @@
 # vue-app
 
+Simple logger app to keep track of task or duties
+
 ## Project setup
 ```
 npm install -g @vue/cli
@@ -13,17 +15,12 @@ vue create <app_name>
 vue serve
 ```
 
-### Compiles and minifies for production
-```
-vue build
-```
-
 ### Build deployment
 ```
 npm run deploy
 ```
 
-#### You might need
+##### You might need
 ```
 npm install sass-loader -D
 ```
