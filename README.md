@@ -2,22 +2,33 @@
 
 ## Project setup
 ```
-npm install
+npm install -g @vue/cli
+```
+```
+vue create <app_name>
 ```
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+vue serve
 ```
 
 ### Compiles and minifies for production
 ```
-npm run build
+vue build
 ```
 
-### Lints and fixes files
+### Build deployment
 ```
-npm run lint
+npm run deploy
+```
+
+#### You might need
+```
+npm install sass-loader -D
+```
+```
+npm install node-sass -D
 ```
 
 ### Customize configuration
