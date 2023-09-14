@@ -3,32 +3,32 @@
     <h1 class="app-title">vue app</h1>
     <div class="separator"></div>
     <div class="logs-container">
-      <div class="log-list">
-        <form @submit.prevent="addTodo" class="todo-form">
+      <div class="log-class-list">
+        <form @submit.prevent="addLog" class="log-form">
           <label class="form-label">New Log</label>
-          <input v-model="newTodo" class="form-input" name="newTodo" autocomplete="off" />
+          <input v-model="newLog" class="form-input" name="newLog" autocomplete="off" />
           <button class="form-button">Add Log</button>
         </form>
         <h2 class="list-title">Log List</h2>
-        <ul class="todo-list">
-          <li v-for="(todo, index) in todos" :key="index" class="todo-item">
-            <span :class="{ done: todo.done }" @click="doneTodo(todo)">{{ todo.content }}</span>
-            <button @click="removeTodo(index)" class="remove-button">Remove</button>
+        <ul class="log-list">
+          <li v-for="(log, index) in logs" :key="index" class="log-item">
+            <span :class="{ done: log.done }" @click="doneLog(log)">{{ log.content }}</span>
+            <button @click="removeLog(index)" class="remove-button">Remove</button>
           </li>
         </ul>
-        <h4 v-if="todos.length === 0" class="empty-list">Empty list.</h4>
+        <h4 v-if="logs.length === 0" class="empty-list">Empty list.</h4>
       </div>
-      <div class="log-list">
-        <form @submit.prevent="addSecondTodo" class="todo-form">
+      <div class="log-class-list">
+        <form @submit.prevent="addSecondLog" class="log-form">
           <label class="form-label">New Log</label>
-          <input v-model="newTodo" class="form-input" name="newTodo" autocomplete="off" />
+          <input v-model="newLog" class="form-input" name="newLog" autocomplete="off" />
           <button class="form-button">Add Log</button>
         </form>
         <h2 class="list-title">Log List</h2>
-        <ul class="todo-list">
-          <li v-for="(todo, index) in secondList" :key="'second-' + index" class="todo-item">
-            <span :class="{ done: todo.done }" @click="doneSecondTodo(todo)">{{ todo.content }}</span>
-            <button @click="removeSecondTodo(index)" class="remove-button">Remove</button>
+        <ul class="log-list">
+          <li v-for="(log, index) in secondList" :key="'second-' + index" class="log-item">
+            <span :class="{ done: log.done }" @click="doneSecondLog(log)">{{ log.content }}</span>
+            <button @click="removeSecondLog(index)" class="remove-button">Remove</button>
           </li>
         </ul>
         <h4 v-if="secondList.length === 0" class="empty-list">Empty list.</h4>
@@ -44,71 +44,71 @@ export default {
   name: 'App',
 
   setup() {
-    const newTodo = ref('');
+    const newLog = ref('');
     const defaultData = [
       {
         done: false,
         content: 'This is a logger test',
       },
     ];
-    const todos = ref([]);
-    const storageKey = 'todos';
+    const logs = ref([]);
+    const storageKey = 'Logs';
 
     const secondList = ref([]);
-    const secondStorageKey = 'secondTodos';
+    const secondStorageKey = 'secondLogs';
 
-    // Load todos from localStorage on component mount
+    // Load logs from localStorage on component mount
     onMounted(() => {
-      const storedTodos = JSON.parse(localStorage.getItem(storageKey)) || defaultData;
-      const storedSecondTodos = JSON.parse(localStorage.getItem(secondStorageKey)) || [];
-      todos.value = storedTodos;
-      secondList.value = storedSecondTodos;
+      const storedLogs = JSON.parse(localStorage.getItem(storageKey)) || defaultData;
+      const storedSecondLogs = JSON.parse(localStorage.getItem(secondStorageKey)) || [];
+      logs.value = storedLogs;
+      secondList.value = storedSecondLogs;
     });
 
-    function addTodo() {
-      if (newTodo.value) {
-        todos.value.push({
+    function addLog() {
+      if (newLog.value) {
+        logs.value.push({
           done: false,
-          content: newTodo.value,
+          content: newLog.value,
         });
-        newTodo.value = '';
+        newLog.value = '';
         saveData();
       }
     }
 
-    function doneTodo(todo) {
-      todo.done = !todo.done;
+    function doneLog(log) {
+      log.done = !log.done;
       saveData();
     }
 
-    function removeTodo(index) {
-      todos.value.splice(index, 1);
+    function removeLog(index) {
+      logs.value.splice(index, 1);
       saveData();
     }
 
     function saveData() {
-      const storageData = JSON.stringify(todos.value);
+      const storageData = JSON.stringify(logs.value);
       localStorage.setItem(storageKey, storageData);
     }
 
     // Functions for the second list
-    function addSecondTodo() {
-      if (newTodo.value) {
+    function addSecondLog() {
+      if (newLog.value) {
         secondList.value.push({
           done: false,
-          content: newTodo.value,
+          content: newLog.value,
         });
-        newTodo.value = '';
+        newLog.value = '';
         saveSecondData();
       }
     }
 
-    function doneSecondTodo(todo) {
-      todo.done = !todo.done;
+    function doneSecondLog(log) {
+      log.done = !log.done;
       saveSecondData();
     }
 
-    function removeSecondTodo(index) {
+    function removeSecondLog(index) {
       secondList.value.splice(index, 1);
       saveSecondData();
     }
@@ -119,19 +119,20 @@ export default {
     }
 
     return {
-      newTodo,
-      todos,
-      addTodo,
-      doneTodo,
-      removeTodo,
+      newLog,
+      logs,
+      addLog,
+      doneLog,
+      removeLog,
       secondList,
-      addSecondTodo,
-      doneSecondTodo,
-      removeSecondTodo,
+      addSecondLog,
+      doneSecondLog,
+      removeSecondLog,
     };
   },
 };
 </script>
+
 
 <style lang="scss">
 $border: 2px solid
@@ -174,9 +175,9 @@ body {
     .logs-container {
       display: flex;
       justify-content: space-between;
-      .log-list {
+      .log-class-list {
         width: 48%;
-        .todo-form {
+        .log-form {
           display: flex;
           flex-direction: column;
           width: 100%;
@@ -216,9 +217,9 @@ body {
           border-bottom: $border;
           padding-bottom: $size1;
         }
-        .todo-list {
+        .log-list {
           padding: 10px;
-          .todo-item {
+          .log-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
