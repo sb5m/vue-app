@@ -38,97 +38,69 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
-
 export default {
   name: 'App',
-
-  setup() {
-    const newLog = ref('');
-    const defaultData = [
-      {
-        done: false,
-        content: 'This is a logger test',
-      },
-    ];
-    const logs = ref([]);
-    const storageKey = 'Logs';
-
-    const secondList = ref([]);
-    const secondStorageKey = 'secondLogs';
-
-    // Load logs from localStorage on component mount
-    onMounted(() => {
-      const storedLogs = JSON.parse(localStorage.getItem(storageKey)) || defaultData;
-      const storedSecondLogs = JSON.parse(localStorage.getItem(secondStorageKey)) || [];
-      logs.value = storedLogs;
-      secondList.value = storedSecondLogs;
-    });
-
-    function addLog() {
-      if (newLog.value) {
-        logs.value.push({
-          done: false,
-          content: newLog.value,
-        });
-        newLog.value = '';
-        saveData();
-      }
-    }
-
-    function doneLog(log) {
-      log.done = !log.done;
-      saveData();
-    }
-
-    function removeLog(index) {
-      logs.value.splice(index, 1);
-      saveData();
-    }
-
-    function saveData() {
-      const storageData = JSON.stringify(logs.value);
-      localStorage.setItem(storageKey, storageData);
-    }
-
-    // Functions for the second list
-    function addSecondLog() {
-      if (newLog.value) {
-        secondList.value.push({
-          done: false,
-          content: newLog.value,
-        });
-        newLog.value = '';
-        saveSecondData();
-      }
-    }
-
-    function doneSecondLog(log) {
-      log.done = !log.done;
-      saveSecondData();
-    }
-
-    function removeSecondLog(index) {
-      secondList.value.splice(index, 1);
-      saveSecondData();
-    }
-
-    function saveSecondData() {
-      const storageData = JSON.stringify(secondList.value);
-      localStorage.setItem(secondStorageKey, storageData);
-    }
-
+  data() {
     return {
-      newLog,
-      logs,
-      addLog,
-      doneLog,
-      removeLog,
-      secondList,
-      addSecondLog,
-      doneSecondLog,
-      removeSecondLog,
+      newLog: '',
+      defaultData: [
+        {
+          done: false,
+          content: 'This is a logger test',
+        },
+      ],
+      logs: [],
+      storageKey: 'Logs',
+      secondList: [],
+      secondStorageKey: 'secondLogs',
     };
+  },
+  methods: {
+    addLog() {
+      if (this.newLog) {
+        this.logs.push({
+          done: false,
+          content: this.newLog,
+        });
+        this.newLog = '';
+        this.saveData();
+      }
+    },
+    doneLog(log) {
+      log.done = !log.done;
+      this.saveData();
+    },
+    removeLog(index) {
+      this.logs.splice(index, 1);
+      this.saveData();
+    },
+    saveData() {
+      const storageData = JSON.stringify(this.logs);
+      localStorage.setItem(this.storageKey, storageData);
+    },
+    // Functions for the second list
+    addSecondLog() {
+      if (this.newLog) {
+        this.secondList.push({
+          done: false,
+          content: this.newLog,
+        });
+        this.newLog = '';
+        this.saveSecondData();
+      }
+    },
+    doneSecondLog(log) {
+      log.done = !log.done;
+      this.saveSecondData();
+    },
+    removeSecondLog(index) {
+      this.secondList.splice(index, 1);
+      this.saveSecondData();
+    },
+    saveSecondData() {
+      const storageData = JSON.stringify(this.secondList);
+      localStorage.setItem(this.secondStorageKey, storageData);
+    },
   },
 };
 </script>
