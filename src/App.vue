@@ -159,7 +159,7 @@ body {
   background-color: $backgroundColor;
   color: $textColor;
   #app {
-    max-width: 600px;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
@@ -234,8 +234,14 @@ body {
               text-decoration: line-through;
             }
             button {
+              cursor: pointer;
               font-size: $size2;
               padding: $size1;
+              background-color: $primaryColor;
+              border: 1px solid $primaryColor;
+              color: $secondTextColor;
+              font-weight: bold;
+              border-radius: $size1;
             }
           }
         }
