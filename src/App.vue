@@ -55,6 +55,17 @@ export default {
       secondStorageKey: 'secondLogs',
     };
   },
+  created() {
+    const storedLogs = localStorage.getItem(this.storageKey);
+    if (storedLogs) {
+      this.logs = JSON.parse(storedLogs);
+    }
+
+    const storedSecondLogs = localStorage.getItem(this.secondStorageKey);
+    if (storedSecondLogs) {
+      this.secondList = JSON.parse(storedSecondLogs);
+    }
+  },
   methods: {
     addLog() {
       if (this.newLog) {
