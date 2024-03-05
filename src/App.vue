@@ -14,8 +14,8 @@
           <li v-for="(log, index) in logs" :key="index" class="log-item">
             <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
             <button @click="removeLog(index)" class="remove-button">Remove</button>
-            <button @click="toggleHighlightRed(log)" class="highlight-button">{{ log.highlightedRed ? 'Remove Red' : 'Highlight Red' }}</button>
-            <button @click="toggleHighlightGreen(log)" class="highlight-button">{{ log.highlightedGreen ? 'Remove Green' : 'Highlight Green' }}</button>
+            <button @click="toggleHighlightRed(log)" class="highlight-button">{{ log.highlightedRed ? 'Highlight Red' : 'Highlight Red' }}</button>
+            <button @click="toggleHighlightGreen(log)" class="highlight-button">{{ log.highlightedGreen ? 'Highlight Green' : 'Highlight Green' }}</button>
           </li>
         </ul>
         <h4 v-if="logs.length === 0" class="empty-list">Empty list.</h4>
@@ -32,8 +32,8 @@
             <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneSecondLog(log)">{{ log.content }}</span>
 
             <button @click="removeSecondLog(index)" class="remove-button">Remove</button>
-            <button @click="toggleSecondHighlightRed(log)" class="highlight-button">{{ log.highlightedRed ? 'Remove Red' : 'Highlight Red' }}</button>
-            <button @click="toggleSecondHighlightGreen(log)" class="highlight-button">{{ log.highlightedGreen ? 'Remove Green' : 'Highlight Green' }}</button>
+            <button @click="toggleSecondHighlightRed(log)" class="highlight-button">{{ log.highlightedRed ? 'Highlight Red' : 'Highlight Red' }}</button>
+            <button @click="toggleSecondHighlightGreen(log)" class="highlight-button">{{ log.highlightedGreen ? 'Highlight Green' : 'Highlight Green' }}</button>
           </li>
         </ul>
         <h4 v-if="secondList.length === 0" class="empty-list">Empty list.</h4>
@@ -153,9 +153,11 @@ export default {
 .highlight-red {
   background-color: red;
   color: white;
+  border-radius: 3px;
 }
 .highlight-green {
   background-color: green;
   color: white;
+  border-radius: 3px;
 }
 </style>
