@@ -11,8 +11,9 @@
         <button @click="toggleHighlightGreen(selectedLog)" class="highlight-button">Toggle Green</button>
         <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
         <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
-        <button @click="moveUp(selectedLog)" class="toggle-button">Move Up</button>
-        <button @click="moveDown(selectedLog)" class="toggle-button">Move Down</button>
+        <button @click="moveUp(selectedLog)" class="move-button">Move Up</button>
+        <button @click="moveDown(selectedLog)" class="move-button">Move Down</button>
+        <div class="selected-list">{{ selectedVariableList }}</div>
     </div>
     <div class="logs-container">
       <div class="log-class-list">
@@ -90,28 +91,18 @@ export default {
   computed: {
     currentList() {
       return this.selectedList === 'logs' ? this.logs : this.secondList;
-    }
+    },
+    selectedVariableList() {
+      if (this.selectedList === 'logs') {
+      return 1;
+      } else if (this.selectedList === 'secondLogs') {
+        return 2;
+      } else {
+        return 0;
+      }
+    },
   },
   methods: {
-    moveUp(selectedLog) {
-      const index = this.currentList.indexOf(selectedLog);
-      if (index > 0) {
-        const temp = this.currentList[index];
-        this.currentList.splice(index, 1);
-        this.currentList.splice(index - 1, 0, temp);
-        this.saveData();
-      }
-    },
-
-    moveDown(selectedLog) {
-      const index = this.currentList.indexOf(selectedLog);
-      if (index < this.currentList.length - 1) {
-        const temp = this.currentList[index];
-        this.currentList.splice(index, 1);
-        this.currentList.splice(index + 1, 0, temp);
-        this.saveData();
-      }
-    },
     toggleLists() {
       this.selectedList = this.selectedList === 'logs' ? 'secondLogs' : 'logs';
     },
@@ -128,6 +119,24 @@ export default {
           this.secondList.splice(index, 1);
           this.saveSecondData();
         }
+      }
+    },
+    moveUp(selectedLog) {
+      const index = this.currentList.indexOf(selectedLog);
+      if (index > 0) {
+        const temp = this.currentList[index];
+        this.currentList.splice(index, 1);
+        this.currentList.splice(index - 1, 0, temp);
+        this.saveData();
+      }
+    },
+    moveDown(selectedLog) {
+      const index = this.currentList.indexOf(selectedLog);
+      if (index < this.currentList.length - 1) {
+        const temp = this.currentList[index];
+        this.currentList.splice(index, 1);
+        this.currentList.splice(index + 1, 0, temp);
+        this.saveData();
       }
     },
     // Functions for the first list
