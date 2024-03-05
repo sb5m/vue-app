@@ -11,6 +11,8 @@
         <button @click="toggleHighlightGreen(selectedLog)" class="highlight-button">Toggle Green</button>
         <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
         <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
+        <button @click="moveUp(selectedLog)" class="toggle-button">Move Up</button>
+        <button @click="moveDown(selectedLog)" class="toggle-button">Move Down</button>
     </div>
     <div class="logs-container">
       <div class="log-class-list">
@@ -24,8 +26,8 @@
           <li v-for="(log, index) in logs" :key="index" class="log-item">
             <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
             <button @click="removeLog(index)" class="remove-button">Remove</button>
-            <button @click="toggleHighlightRed(log)" class="highlight-button">{{ log.highlightedRed ? 'Highlight Red' : 'Highlight Red' }}</button>
-            <button @click="toggleHighlightGreen(log)" class="highlight-button">{{ log.highlightedGreen ? 'Highlight Green' : 'Highlight Green' }}</button>
+            <!-- <button @click="toggleHighlightRed(log)" class="highlight-button">{{ log.highlightedRed ? 'Highlight Red' : 'Highlight Red' }}</button>
+            <button @click="toggleHighlightGreen(log)" class="highlight-button">{{ log.highlightedGreen ? 'Highlight Green' : 'Highlight Green' }}</button> -->
           </li>
         </ul>
         <h4 v-if="logs.length === 0" class="empty-list">Empty list.</h4>
@@ -42,8 +44,8 @@
             <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneSecondLog(log)">{{ log.content }}</span>
 
             <button @click="removeSecondLog(index)" class="remove-button">Remove</button>
-            <button @click="toggleSecondHighlightRed(log)" class="highlight-button">{{ log.highlightedRed ? 'Highlight Red' : 'Highlight Red' }}</button>
-            <button @click="toggleSecondHighlightGreen(log)" class="highlight-button">{{ log.highlightedGreen ? 'Highlight Green' : 'Highlight Green' }}</button>
+            <!-- <button @click="toggleSecondHighlightRed(log)" class="highlight-button">{{ log.highlightedRed ? 'Highlight Red' : 'Highlight Red' }}</button>
+            <button @click="toggleSecondHighlightGreen(log)" class="highlight-button">{{ log.highlightedGreen ? 'Highlight Green' : 'Highlight Green' }}</button> -->
           </li>
         </ul>
         <h4 v-if="secondList.length === 0" class="empty-list">Empty list.</h4>
@@ -91,6 +93,25 @@ export default {
     }
   },
   methods: {
+    moveUp(selectedLog) {
+      const index = this.currentList.indexOf(selectedLog);
+      if (index > 0) {
+        const temp = this.currentList[index];
+        this.currentList.splice(index, 1);
+        this.currentList.splice(index - 1, 0, temp);
+        this.saveData();
+      }
+    },
+
+    moveDown(selectedLog) {
+      const index = this.currentList.indexOf(selectedLog);
+      if (index < this.currentList.length - 1) {
+        const temp = this.currentList[index];
+        this.currentList.splice(index, 1);
+        this.currentList.splice(index + 1, 0, temp);
+        this.saveData();
+      }
+    },
     toggleLists() {
       this.selectedList = this.selectedList === 'logs' ? 'secondLogs' : 'logs';
     },
