@@ -9,6 +9,7 @@
         </select>
         <button @click="toggleHighlightRed(selectedLog)" class="highlight-button">Toggle Red</button>
         <button @click="toggleHighlightGreen(selectedLog)" class="highlight-button">Toggle Green</button>
+        <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
     </div>
     <div class="logs-container">
       <div class="log-class-list">
@@ -80,21 +81,13 @@ export default {
     if (storedSecondLogs) {
       this.secondList = JSON.parse(storedSecondLogs);
     }
-
-    this.loadLogs();
-    this.loadSecondLogs();
   },
   methods: {
-    loadLogs() {
-      const storedLogs = localStorage.getItem(this.storageKey);
-      if (storedLogs) {
-        this.logs = JSON.parse(storedLogs);
-      }
-    },
-    loadSecondLogs() {
-      const storedSecondLogs = localStorage.getItem(this.secondStorageKey);
-      if (storedSecondLogs) {
-        this.secondList = JSON.parse(storedSecondLogs);
+    deleteLog(selectedLog) {
+      const index = this.logs.indexOf(selectedLog);
+      if (index !== -1) {
+        this.logs.splice(index, 1);
+        this.saveData();
       }
     },
     // Functions for the first list
