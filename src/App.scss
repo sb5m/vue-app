@@ -7,6 +7,7 @@ $size5: 48px;
 $backgroundColor: #17181a;
 $textColor: white;
 $primaryColor: #89babf;
+$primaryhoverColor: #5a9198;
 $secondTextColor: #1f2023;
 
 body {
@@ -32,6 +33,51 @@ body {
   .separator {
     border-bottom: 1px solid $primaryColor;
     margin: 20px 0 30px;
+  }
+  .control-panel {
+    position: fixed;
+    top: 0;
+    left: 75px;
+    width: 200px;
+    padding: 20px;
+  }
+  .control-panel h2 {
+    margin-bottom: 10px;
+  }
+  .control-panel button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: $primaryColor;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .control-panel button:hover {
+    background-color: $primaryhoverColor;
+  }
+  .control-panel select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .highlight-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .highlight-button:hover {
+    background-color: #218838;
   }
   .logs-container {
     display: flex;

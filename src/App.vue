@@ -2,6 +2,14 @@
   <div class="app">
     <h1 class="app-title">vue app</h1>
     <div class="separator"></div>
+    <div class="control-panel">
+      <h2>Control Panel</h2>
+        <select v-model="selectedLog">
+          <option v-for="(log, index) in logs" :key="index" :value="log">{{ log.content }}</option>
+        </select>
+        <button @click="toggleHighlightRed(selectedLog)" class="highlight-button">Toggle Red</button>
+        <button @click="toggleHighlightGreen(selectedLog)" class="highlight-button">Toggle Green</button>
+    </div>
     <div class="logs-container">
       <div class="log-class-list">
         <form @submit.prevent="addLog" class="log-form">
@@ -72,8 +80,24 @@ export default {
     if (storedSecondLogs) {
       this.secondList = JSON.parse(storedSecondLogs);
     }
+
+    this.loadLogs();
+    this.loadSecondLogs();
   },
   methods: {
+    loadLogs() {
+      const storedLogs = localStorage.getItem(this.storageKey);
+      if (storedLogs) {
+        this.logs = JSON.parse(storedLogs);
+      }
+    },
+    loadSecondLogs() {
+      const storedSecondLogs = localStorage.getItem(this.secondStorageKey);
+      if (storedSecondLogs) {
+        this.secondList = JSON.parse(storedSecondLogs);
+      }
+    },
+    // Functions for the first list
     addLog() {
       if (this.newLog) {
         this.logs.push({
