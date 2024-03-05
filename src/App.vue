@@ -12,8 +12,10 @@
         <h2 class="list-title">Log List</h2>
         <ul class="log-list">
           <li v-for="(log, index) in logs" :key="index" class="log-item">
-            <span :class="{ done: log.done }" @click="doneLog(log)">{{ log.content }}</span>
+            <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
             <button @click="removeLog(index)" class="remove-button">Remove</button>
+            <button @click="toggleHighlightRed(log)" class="highlight-button">{{ log.highlightedRed ? 'Remove Red' : 'Highlight Red' }}</button>
+            <button @click="toggleHighlightGreen(log)" class="highlight-button">{{ log.highlightedGreen ? 'Remove Green' : 'Highlight Green' }}</button>
           </li>
         </ul>
         <h4 v-if="logs.length === 0" class="empty-list">Empty list.</h4>
@@ -27,8 +29,11 @@
         <h2 class="list-title">Log List</h2>
         <ul class="log-list">
           <li v-for="(log, index) in secondList" :key="'second-' + index" class="log-item">
-            <span :class="{ done: log.done }" @click="doneSecondLog(log)">{{ log.content }}</span>
+            <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneSecondLog(log)">{{ log.content }}</span>
+
             <button @click="removeSecondLog(index)" class="remove-button">Remove</button>
+            <button @click="toggleSecondHighlightRed(log)" class="highlight-button">{{ log.highlightedRed ? 'Remove Red' : 'Highlight Red' }}</button>
+            <button @click="toggleSecondHighlightGreen(log)" class="highlight-button">{{ log.highlightedGreen ? 'Remove Green' : 'Highlight Green' }}</button>
           </li>
         </ul>
         <h4 v-if="secondList.length === 0" class="empty-list">Empty list.</h4>
@@ -74,6 +79,8 @@ export default {
         this.logs.push({
           done: false,
           content: this.newLog,
+          highlightedRed: false,
+          highlightedGreen: false,
         });
         this.newLog = '';
         this.saveData();
@@ -90,6 +97,18 @@ export default {
     saveData() {
       const storageData = JSON.stringify(this.logs);
       localStorage.setItem(this.storageKey, storageData);
+    },
+    toggleHighlightRed(log) {
+      log.highlightedRed = !log.highlightedRed;
+      if (log.highlightedRed) {
+        log.highlightedGreen = false;
+      }
+    },
+    toggleHighlightGreen(log) {
+      log.highlightedGreen = !log.highlightedGreen;
+      if (log.highlightedGreen) {
+        log.highlightedRed = false;
+      }
     },
     // Functions for the second list
     addSecondLog() {
@@ -114,6 +133,29 @@ export default {
       const storageData = JSON.stringify(this.secondList);
       localStorage.setItem(this.secondStorageKey, storageData);
     },
+    toggleSecondHighlightRed(log) {
+      log.highlightedRed = !log.highlightedRed;
+      if (log.highlightedRed) {
+        log.highlightedGreen = false;
+      }
+    },
+    toggleSecondHighlightGreen(log) {
+      log.highlightedGreen = !log.highlightedGreen;
+      if (log.highlightedGreen) {
+        log.highlightedRed = false;
+      }
+    },
   },
 };
 </script>
+
+<style scoped>
+.highlight-red {
+  background-color: red;
+  color: white;
+}
+.highlight-green {
+  background-color: green;
+  color: white;
+}
+</style>
