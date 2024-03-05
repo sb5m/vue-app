@@ -5,11 +5,12 @@
     <div class="control-panel">
       <h2>Control Panel</h2>
         <select v-model="selectedLog">
-          <option v-for="(log, index) in logs" :key="index" :value="log">{{ log.content }}</option>
+          <option v-for="(log, index) in currentList" :key="index" :value="log">{{ log.content }}</option>
         </select>
         <button @click="toggleHighlightRed(selectedLog)" class="highlight-button">Toggle Red</button>
         <button @click="toggleHighlightGreen(selectedLog)" class="highlight-button">Toggle Green</button>
         <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
+        <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
     </div>
     <div class="logs-container">
       <div class="log-class-list">
@@ -69,6 +70,8 @@ export default {
       storageKey: 'Logs',
       secondList: [],
       secondStorageKey: 'secondLogs',
+      selectedLog: null,
+      selectedList: 'logs',
     };
   },
   created() {
@@ -82,12 +85,28 @@ export default {
       this.secondList = JSON.parse(storedSecondLogs);
     }
   },
+  computed: {
+    currentList() {
+      return this.selectedList === 'logs' ? this.logs : this.secondList;
+    }
+  },
   methods: {
+    toggleLists() {
+      this.selectedList = this.selectedList === 'logs' ? 'secondLogs' : 'logs';
+    },
     deleteLog(selectedLog) {
-      const index = this.logs.indexOf(selectedLog);
-      if (index !== -1) {
-        this.logs.splice(index, 1);
-        this.saveData();
+      if (this.selectedList === 'logs') {
+        const index = this.logs.indexOf(selectedLog);
+        if (index !== -1) {
+          this.logs.splice(index, 1);
+          this.saveData();
+        }
+      } else if (this.selectedList === 'secondLogs') {
+        const index = this.secondList.indexOf(selectedLog);
+        if (index !== -1) {
+          this.secondList.splice(index, 1);
+          this.saveSecondData();
+        }
       }
     },
     // Functions for the first list
