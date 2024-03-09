@@ -13,7 +13,7 @@ const routes = [
     component: Hello
   },
   {
-  path: '/logs/:logId', 
+  path: '/item', 
   component: LogComments,
   props: true
   }

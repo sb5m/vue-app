@@ -14,6 +14,7 @@
         <button @click="moveUp(selectedLog)" class="move-button">Move Up</button>
         <button @click="moveDown(selectedLog)" class="move-button">Move Down</button>
         <div class="selected-list">{{ selectedVariableList }}</div>
+        <LogComments :log="selectedLog" />
     </div>
     <div class="logs-container">
       <div class="log-class-list">
@@ -52,17 +53,13 @@
       <router-link to="/test">
         <button class="goto-test-button">Go to Test</button>
       </router-link>
-      <template v-if="selectedLog">
-        <router-link :to="'/logs/' + selectedLog.id">
-          <span :class="{ done: selectedLog.done, 'highlight-red': selectedLog.highlightedRed, 'highlight-green': selectedLog.highlightedGreen }">{{ selectedLog.content }}</span>
-        </router-link>
-      </template>
     </div>
   </div>
 </template>
 
 <script>
 import './Dashboard.scss';
+import LogComments from './LogComments.vue';
 
 /**
  * @typedef {Object} Log
@@ -75,6 +72,9 @@ import './Dashboard.scss';
 
 export default {
   name: 'App',
+  components: {
+    LogComments
+  },
   data() {
     return {
       newLog: '',
@@ -93,6 +93,7 @@ export default {
       secondStorageKey: 'secondLogs',
       selectedLog: null,
       selectedList: 'logs',
+      logIdCounter: 1 
     };
   },
   created() {
@@ -163,6 +164,7 @@ export default {
           id: this.logs.length + 1,
           done: false,
           content: this.newLog,
+          timestamp: new Date().toLocaleString(),
           highlightedRed: false,
           highlightedGreen: false,
         });
@@ -197,6 +199,7 @@ export default {
           id: this.logs.length + 1,
           done: false,
           content: this.newLog,
+          timestamp: new Date().toLocaleString(),
           highlightedRed: false,
           highlightedGreen: false,
         });
