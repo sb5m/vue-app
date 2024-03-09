@@ -118,21 +118,6 @@ body {
     padding: 10px;
     margin-bottom: 10px;
   }  
-  // .highlight-button {
-  //   display: block;
-  //   width: 100%;
-  //   padding: 10px;
-  //   margin-bottom: 5px;
-  //   background-color: #28a745;
-  //   color: #fff;
-  //   border: none;
-  //   border-radius: 5px;
-  //   cursor: pointer;
-  //   transition: background-color 0.3s ease;
-  // }
-  // .highlight-button:hover {
-  //   background-color: #218838;
-  // }
   .logs-container {
     display: flex;
     justify-content: space-between;
@@ -213,5 +198,12 @@ body {
         margin: 0;
       }
     }
+  }
+  .test-panel {
+    position: fixed;
+    top: 70px;
+    left: 1600px;
+    width: 200px;
+    padding: 20px;
   }
 }
