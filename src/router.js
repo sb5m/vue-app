@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Todo from './components/Dashboard.vue';
 import Hello from './components/hello.vue';
+import LogComments from './components/LogComments.vue';
 
 const routes = [
   {
@@ -10,6 +11,11 @@ const routes = [
   {
     path: '/test',
     component: Hello
+  },
+  {
+  path: '/logs/:logId', 
+  component: LogComments,
+  props: true
   }
 ];
 

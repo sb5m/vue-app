@@ -26,9 +26,7 @@
         <ul class="log-list">
           <li v-for="(log, index) in logs" :key="index" class="log-item">
             <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
-            <button @click="removeLog(index)" class="remove-button">Remove</button>
-            <!-- <button @click="toggleHighlightRed(log)" class="highlight-button">{{ log.highlightedRed ? 'Highlight Red' : 'Highlight Red' }}</button>
-            <button @click="toggleHighlightGreen(log)" class="highlight-button">{{ log.highlightedGreen ? 'Highlight Green' : 'Highlight Green' }}</button> -->
+            <button class="remove-button">Remove</button>
           </li>
         </ul>
         <h4 v-if="logs.length === 0" class="empty-list">Empty list.</h4>
@@ -44,9 +42,7 @@
           <li v-for="(log, index) in secondList" :key="'second-' + index" class="log-item">
             <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneSecondLog(log)">{{ log.content }}</span>
 
-            <button @click="removeSecondLog(index)" class="remove-button">Remove</button>
-            <!-- <button @click="toggleSecondHighlightRed(log)" class="highlight-button">{{ log.highlightedRed ? 'Highlight Red' : 'Highlight Red' }}</button>
-            <button @click="toggleSecondHighlightGreen(log)" class="highlight-button">{{ log.highlightedGreen ? 'Highlight Green' : 'Highlight Green' }}</button> -->
+            <button class="remove-button">Remove</button>
           </li>
         </ul>
         <h4 v-if="secondList.length === 0" class="empty-list">Empty list.</h4>
@@ -56,12 +52,26 @@
       <router-link to="/test">
         <button class="goto-test-button">Go to Test</button>
       </router-link>
+      <template v-if="selectedLog">
+        <router-link :to="'/logs/' + selectedLog.id">
+          <span :class="{ done: selectedLog.done, 'highlight-red': selectedLog.highlightedRed, 'highlight-green': selectedLog.highlightedGreen }">{{ selectedLog.content }}</span>
+        </router-link>
+      </template>
     </div>
   </div>
 </template>
 
 <script>
 import './Dashboard.scss';
+
+/**
+ * @typedef {Object} Log
+ * @property {number} id
+ * @property {boolean} done
+ * @property {string} content
+ * @property {boolean} highlightedRed
+ * @property {boolean} highlightedGreen
+ */
 
 export default {
   name: 'App',
@@ -72,6 +82,9 @@ export default {
         {
           done: false,
           content: 'This is a logger test',
+          extraInfo: 'Additional information',
+          timestamp: new Date().toISOString(),
+          id: 1
         },
       ],
       logs: [],
@@ -144,10 +157,10 @@ export default {
         this.saveData();
       }
     },
-    // Functions for the first list
     addLog() {
       if (this.newLog) {
         this.logs.push({
+          id: this.logs.length + 1,
           done: false,
           content: this.newLog,
           highlightedRed: false,
@@ -159,10 +172,6 @@ export default {
     },
     doneLog(log) {
       log.done = !log.done;
-      this.saveData();
-    },
-    removeLog(index) {
-      this.logs.splice(index, 1);
       this.saveData();
     },
     saveData() {
@@ -185,8 +194,11 @@ export default {
     addSecondLog() {
       if (this.newLog) {
         this.secondList.push({
+          id: this.logs.length + 1,
           done: false,
           content: this.newLog,
+          highlightedRed: false,
+          highlightedGreen: false,
         });
         this.newLog = '';
         this.saveSecondData();
@@ -196,25 +208,9 @@ export default {
       log.done = !log.done;
       this.saveSecondData();
     },
-    removeSecondLog(index) {
-      this.secondList.splice(index, 1);
-      this.saveSecondData();
-    },
     saveSecondData() {
       const storageData = JSON.stringify(this.secondList);
       localStorage.setItem(this.secondStorageKey, storageData);
-    },
-    toggleSecondHighlightRed(log) {
-      log.highlightedRed = !log.highlightedRed;
-      if (log.highlightedRed) {
-        log.highlightedGreen = false;
-      }
-    },
-    toggleSecondHighlightGreen(log) {
-      log.highlightedGreen = !log.highlightedGreen;
-      if (log.highlightedGreen) {
-        log.highlightedRed = false;
-      }
     },
   },
 };
