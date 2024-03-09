@@ -7,6 +7,7 @@ $size5: 48px;
 $backgroundColor: #17181a;
 $textColor: white;
 $primaryColor: #89babf;
+$primaryhoverColor: #5a9198;
 $secondTextColor: #1f2023;
 
 body {
@@ -33,6 +34,105 @@ body {
     border-bottom: 1px solid $primaryColor;
     margin: 20px 0 30px;
   }
+  .control-panel {
+    position: fixed;
+    top: 70px;
+    left: 75px;
+    width: 200px;
+    padding: 20px;
+
+    .toggle-button {
+      background-color: #007bff;
+      color: #fff; 
+      border: none;
+      padding: 10px 20px; 
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      
+      width: 150px;
+      height: 36px;
+
+      position: absolute;
+      right: -140px;
+      top: 80px;
+
+      &:hover {
+        background-color: #2179d6
+      }
+    }
+    .delete-button {
+      background-color: #922e2e;
+      color: #fff; 
+      border: none;
+      padding: 10px 20px; 
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      
+      width: 150px;
+      height: 36px;
+
+      position: absolute;
+      right: -140px;
+      top: 127px;
+
+      &:hover {
+        background-color: #922e2e
+      }
+    }
+    .selected-list {
+      background-color: #007bff;
+      color: #fff; 
+      border: none;
+      padding: 10px 20px; 
+      cursor: default;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+
+      position: absolute;
+      right: 235px;
+      top: 80px;
+    }
+  }
+  .control-panel h2 {
+    margin-bottom: 10px;
+  }
+  .control-panel button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: $primaryColor;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .control-panel button:hover {
+    background-color: $primaryhoverColor;
+  }
+  .control-panel select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }  
+  // .highlight-button {
+  //   display: block;
+  //   width: 100%;
+  //   padding: 10px;
+  //   margin-bottom: 5px;
+  //   background-color: #28a745;
+  //   color: #fff;
+  //   border: none;
+  //   border-radius: 5px;
+  //   cursor: pointer;
+  //   transition: background-color 0.3s ease;
+  // }
+  // .highlight-button:hover {
+  //   background-color: #218838;
+  // }
   .logs-container {
     display: flex;
     justify-content: space-between;
@@ -98,6 +198,7 @@ body {
             cursor: pointer;
             font-size: $size2;
             padding: $size1;
+            margin: 2px;
             background-color: $primaryColor;
             border: 1px solid $primaryColor;
             color: $secondTextColor;
