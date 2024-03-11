@@ -22,6 +22,7 @@ body {
 
 #app {
   max-width: 800px;
+  height: 800px;
   margin-left: auto;
   margin-right: auto;
   padding: 20px;
@@ -205,18 +206,6 @@ body {
     left: 1450px;
     width: 200px;
     padding: 20px;
-    .goto-test-button {
-      background-color: $primaryColor;
-      color: white;
-      padding: 10px 10px; 
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-
-      width: 150px;
-      height: 36px;
-    }
     .goto-item-button {
       background-color: $primaryColor;
       margin-top: 10px;

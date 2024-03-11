@@ -51,19 +51,18 @@
 
     <div class="test-panel">
       <h2>Router Panel</h2>
-      <router-link to="/test" class="goto-test-link">
-        <button class="goto-test-button">Go to Test</button>
-      </router-link>
       <router-link to="/item" class="goto-item-link">
         <button class="goto-item-button">Go to Item</button>
       </router-link>
     </div>
   </div>
+  <MainDisclaimer/>
 </template>
 
 <script>
 import './Dashboard.scss';
 import LogComments from './LogComments.vue';
+import MainDisclaimer from "./MainDisclaimer.vue";
 
 /**
  * @typedef {Object} Log
@@ -77,7 +76,8 @@ import LogComments from './LogComments.vue';
 export default {
   name: 'App',
   components: {
-    LogComments
+    LogComments,
+    MainDisclaimer
   },
   data() {
     return {
