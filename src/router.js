@@ -5,6 +5,12 @@ import LogMod from './components/LogMod.vue';
 const routes = [
   {
     path: '/',
+    component: Todo,
+    redirect: { name: 'Home' }
+  },
+  {
+    path: '/vue-app/',
+    name: 'Home',
     component: Todo
   },
   {
