@@ -50,10 +50,11 @@
     </div>
 
     <div class="test-panel">
-      <router-link to="/test">
+      <h2>Router Panel</h2>
+      <router-link to="/test" class="goto-test-link">
         <button class="goto-test-button">Go to Test</button>
       </router-link>
-      <router-link to="/item">
+      <router-link to="/item" class="goto-item-link">
         <button class="goto-item-button">Go to Item</button>
       </router-link>
     </div>

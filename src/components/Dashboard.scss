@@ -202,8 +202,37 @@ body {
   .test-panel {
     position: fixed;
     top: 70px;
-    left: 1600px;
+    left: 1450px;
     width: 200px;
     padding: 20px;
+    .goto-test-button {
+      background-color: $primaryColor;
+      color: white;
+      padding: 10px 10px; 
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+
+      width: 150px;
+      height: 36px;
+    }
+    .goto-item-button {
+      background-color: $primaryColor;
+      margin-top: 10px;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+
+      width: 150px;
+      height: 36px;
+    }
+    .test-panel h2 {
+      margin-bottom: 10px;
+    }
   }
+
 }
