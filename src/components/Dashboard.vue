@@ -18,14 +18,14 @@
     </div>
     <div class="logs-container">
       <div class="log-class-list">
-        <form @submit.prevent="addLog" class="log-form">
+        <form @submit.prevent="addLog(1)" class="log-form">
           <label class="form-label">New Log</label>
           <input v-model="newLog" class="form-input" name="newLog" autocomplete="off" />
           <button class="form-button">Add Log</button>
         </form>
         <h2 class="list-title">Log List</h2>
         <ul class="log-list">
-          <li v-for="(log, index) in logs" :key="index" class="log-item">
+          <li v-for="(log, index) in list1" :key="index" class="log-item">
             <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
             <button class="remove-button">Remove</button>
           </li>
@@ -33,22 +33,22 @@
         <h4 v-if="logs.length === 0" class="empty-list">Empty list.</h4>
       </div>
       <div class="log-class-list">
-        <form @submit.prevent="addSecondLog" class="log-form">
+        <form @submit.prevent="addLog(2)" class="log-form">
           <label class="form-label">New Log</label>
           <input v-model="newLog" class="form-input" name="newLog" autocomplete="off" />
           <button class="form-button">Add Log</button>
         </form>
         <h2 class="list-title">Log List</h2>
         <ul class="log-list">
-          <li v-for="(log, index) in secondList" :key="'second-' + index" class="log-item">
+          <li v-for="(log, index) in list2" :key="'second-' + index" class="log-item">
             <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneSecondLog(log)">{{ log.content }}</span>
-
             <button class="remove-button">Remove</button>
           </li>
         </ul>
-        <h4 v-if="secondList.length === 0" class="empty-list">Empty list.</h4>
+        <h4 v-if="logs.length === 0" class="empty-list">Empty list.</h4>
       </div>
     </div>
+
     <div class="test-panel">
       <router-link to="/test">
         <button class="goto-test-button">Go to Test</button>
@@ -92,7 +92,7 @@ export default {
       secondList: [],
       secondStorageKey: 'secondLogs',
       selectedLog: null,
-      selectedList: 'logs',
+      selectedList: 1,
       logIdCounter: 1 
     };
   },
@@ -101,69 +101,57 @@ export default {
     if (storedLogs) {
       this.logs = JSON.parse(storedLogs);
     }
-
-    const storedSecondLogs = localStorage.getItem(this.secondStorageKey);
-    if (storedSecondLogs) {
-      this.secondList = JSON.parse(storedSecondLogs);
-    }
   },
   computed: {
     currentList() {
-      return this.selectedList === 'logs' ? this.logs : this.secondList;
+      return this.logs.filter(log => log.list === this.selectedList);
     },
     selectedVariableList() {
-      if (this.selectedList === 'logs') {
-      return 1;
-      } else if (this.selectedList === 'secondLogs') {
-        return 2;
-      } else {
-        return 0;
-      }
+      return this.selectedList;
+    },
+    list1() {
+      return this.logs.filter(log => log.list === 1);
+    },
+    list2() {
+      return this.logs.filter(log => log.list === 2);
     },
   },
   methods: {
     toggleLists() {
-      this.selectedList = this.selectedList === 'logs' ? 'secondLogs' : 'logs';
+      this.selectedList = this.selectedList === 1 ? 2 : 1;
     },
     deleteLog(selectedLog) {
-      if (this.selectedList === 'logs') {
-        const index = this.logs.indexOf(selectedLog);
-        if (index !== -1) {
-          this.logs.splice(index, 1);
-          this.saveData();
-        }
-      } else if (this.selectedList === 'secondLogs') {
-        const index = this.secondList.indexOf(selectedLog);
-        if (index !== -1) {
-          this.secondList.splice(index, 1);
-          this.saveSecondData();
-        }
+      const index = this.logs.indexOf(selectedLog);
+      if (index !== -1) {
+        this.logs.splice(index, 1);
+        this.saveData();
       }
     },
     moveUp(selectedLog) {
-      const index = this.currentList.indexOf(selectedLog);
+      const index = this.logs.indexOf(selectedLog);
       if (index > 0) {
-        const temp = this.currentList[index];
-        this.currentList.splice(index, 1);
-        this.currentList.splice(index - 1, 0, temp);
+        const temp = this.logs[index];
+        this.logs.splice(index, 1);
+        this.logs.splice(index - 1, 0, temp);
         this.saveData();
       }
     },
     moveDown(selectedLog) {
-      const index = this.currentList.indexOf(selectedLog);
-      if (index < this.currentList.length - 1) {
-        const temp = this.currentList[index];
-        this.currentList.splice(index, 1);
-        this.currentList.splice(index + 1, 0, temp);
+      const index = this.logs.indexOf(selectedLog);
+      if (index < this.logs.length - 1) {
+        const temp = this.logs[index];
+        this.logs.splice(index, 1);
+        this.logs.splice(index + 1, 0, temp);
         this.saveData();
       }
     },
-    addLog() {
+    addLog(listNumber) {
       if (this.newLog) {
         this.logs.push({
-          id: this.logs.length + 1,
-          done: false,
+          id: this.logIdCounter++,
           content: this.newLog,
+          list: listNumber, // Assign to the specified list
+          done: false,
           timestamp: new Date().toLocaleString(),
           highlightedRed: false,
           highlightedGreen: false,
@@ -191,29 +179,6 @@ export default {
       if (log.highlightedGreen) {
         log.highlightedRed = false;
       }
-    },
-    // Functions for the second list
-    addSecondLog() {
-      if (this.newLog) {
-        this.secondList.push({
-          id: this.logs.length + 1,
-          done: false,
-          content: this.newLog,
-          timestamp: new Date().toLocaleString(),
-          highlightedRed: false,
-          highlightedGreen: false,
-        });
-        this.newLog = '';
-        this.saveSecondData();
-      }
-    },
-    doneSecondLog(log) {
-      log.done = !log.done;
-      this.saveSecondData();
-    },
-    saveSecondData() {
-      const storageData = JSON.stringify(this.secondList);
-      localStorage.setItem(this.secondStorageKey, storageData);
     },
   },
 };
