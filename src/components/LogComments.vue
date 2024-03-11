@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Log Raw Data:</h2>
-    <pre>{{ log }}</pre>
+    <!-- <pre>{{ log }}</pre> -->
 
     <button @click="downloadAllLogs">Download Logs</button>
     
@@ -50,8 +50,8 @@ export default {
         const fileContents = event.target.result;
         try {
           const jsonData = JSON.parse(fileContents);
-          localStorage.setItem('jsonData', JSON.stringify(jsonData));
-          this.showNotification('Data loaded successfully');
+          localStorage.setItem('Logs', JSON.stringify(jsonData));
+          this.showNotification('Logs loaded in Local Storage');
         } catch (error) {
           console.error('Error parsing JSON:', error);
           this.showNotification('Error loading data. Please check the file format.');

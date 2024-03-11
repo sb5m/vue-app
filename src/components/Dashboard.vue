@@ -93,8 +93,6 @@ export default {
       ],
       logs: [],
       storageKey: 'Logs',
-      secondList: [],
-      secondStorageKey: 'secondLogs',
       selectedLog: null,
       selectedList: 1,
       logIdCounter: 1 
