@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Todo from './components/Dashboard.vue';
 import Hello from './components/hello.vue';
-import LogComments from './components/LogComments.vue';
+// import LogComments from './components/LogComments.vue';
+import LogMod from './components/LogMod.vue';
 
 const routes = [
   {
@@ -14,7 +15,7 @@ const routes = [
   },
   {
   path: '/item', 
-  component: LogComments,
+  component: LogMod,
   props: true
   }
 ];

@@ -53,6 +53,9 @@
       <router-link to="/test">
         <button class="goto-test-button">Go to Test</button>
       </router-link>
+      <router-link to="/item">
+        <button class="goto-item-button">Go to Item</button>
+      </router-link>
     </div>
   </div>
 </template>
