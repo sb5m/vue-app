@@ -41,7 +41,7 @@
         <h2 class="list-title">Log List</h2>
         <ul class="log-list">
           <li v-for="(log, index) in list2" :key="'second-' + index" class="log-item">
-            <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneSecondLog(log)">{{ log.content }}</span>
+            <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
             <button class="remove-button">Remove</button>
           </li>
         </ul>

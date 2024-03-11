@@ -52,6 +52,7 @@ export default {
           const jsonData = JSON.parse(fileContents);
           localStorage.setItem('Logs', JSON.stringify(jsonData));
           this.showNotification('Logs loaded in Local Storage');
+          window.location.reload();
         } catch (error) {
           console.error('Error parsing JSON:', error);
           this.showNotification('Error loading data. Please check the file format.');
