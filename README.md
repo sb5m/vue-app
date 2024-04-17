@@ -7,7 +7,7 @@ Simple logger app to keep track of task or duties
 npm install -g @vue/cli
 ```
 ```
-vue create <app_name>
+npm install
 ```
 
 ### Compiles and hot-reloads for development
@@ -18,14 +18,6 @@ vue serve
 ### Build deployment
 ```
 npm run deploy
-```
-
-##### You might need
-```
-npm install sass-loader -D
-```
-```
-npm install node-sass -D
 ```
 
 ### Customize configuration
