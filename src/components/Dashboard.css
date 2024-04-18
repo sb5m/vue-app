@@ -97,6 +97,14 @@ body {
   align-items: left;
 }
 
+.select-wrapper {
+  display: flex;
+}
+
+.select-wrapper select {
+  margin-right: 10px;
+}
+
 .toggle-button,
 .delete-button,
 .selected-list {
@@ -122,8 +130,8 @@ body {
   background-color: #007bff;
   color: #fff;
   cursor: default;
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   padding: 10px;
   border: 1px solid #0056b3;
   border-radius: 5px;
@@ -137,7 +145,6 @@ body {
 }
 
 .control-panel button {
-  display: block;
   width: 100%;
   padding: 10px;
   margin-bottom: 5px;
@@ -262,7 +269,6 @@ body {
 }
 
 .router-panel button {
-  display: block;
   width: 100%;
   padding: 10px;
   margin-bottom: 5px;
@@ -276,12 +282,6 @@ body {
 
 .router-panel button:hover {
   background-color: var(--primaryhoverColor);
-}
-
-.router-panel select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
 }
 
 .router-panel h2 {

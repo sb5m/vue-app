@@ -6,16 +6,18 @@
       <div class="left-panel">
         <div class="control-panel">
           <h2>Control Panel</h2>
-            <select v-model="selectedLog">
-              <option v-for="(log, index) in currentList" :key="index" :value="log">{{ log.content }}</option>
-            </select>
+            <div class="select-wrapper">
+              <select v-model="selectedLog">
+                <option v-for="(log, index) in currentList" :key="index" :value="log">{{ log.content }}</option>
+              </select>
+              <div class="selected-list">{{ selectedVariableList }}</div>
+            </div>
             <button @click="toggleHighlightRed(selectedLog)" class="highlight-button">Toggle Red</button>
             <button @click="toggleHighlightGreen(selectedLog)" class="highlight-button">Toggle Green</button>
             <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
             <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
             <button @click="moveUp(selectedLog)" class="move-button">Move Up</button>
             <button @click="moveDown(selectedLog)" class="move-button">Move Down</button>
-            <div class="selected-list">{{ selectedVariableList }}</div>
             <LogComments :log="selectedLog" />
         </div>
       </div>
