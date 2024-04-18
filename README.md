@@ -1,6 +1,6 @@
 # vue-app
 
-Simple logger app to keep track of task or duties
+Simple logger app with routing and components to keep track of tasks.
 
 ## Project setup
 ```
