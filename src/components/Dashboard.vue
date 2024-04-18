@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import './Dashboard.scss';
+import './Dashboard.css';
 import LogComments from './LogComments.vue';
 import MainDisclaimer from "./MainDisclaimer.vue";
 

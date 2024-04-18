@@ -33,8 +33,8 @@
 </template>
   
 <script>
-import './LogMod.scss';
-import './Dashboard.scss';
+import './LogMod.css';
+import './Dashboard.css';
 
 export default {
   name: 'LogDetails',
