@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="right-panel">
-        <div class="test-panel">
+        <div class="router-panel">
           <h2>Router Panel</h2>
           <router-link to="/item" class="goto-item-link">
             <button class="goto-item-button">Go to Item</button>

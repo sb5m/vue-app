@@ -42,10 +42,12 @@ body {
 
 .left-panel {
   justify-self: end;
+  width: 240px;
 }
 
 .right-panel {
-  justify-self: start;
+  justify-self: end;
+  width: 240px;
 }
 
 .logs-container {
@@ -90,6 +92,9 @@ body {
   width: 200px;
   padding: 20px;
   justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
 }
 
 .toggle-button,
@@ -104,12 +109,12 @@ body {
 }
 
 .toggle-button {
-  background-color: #007bff;
+  background-color: #007bff !important;;
   color: #fff;
 }
 
 .delete-button {
-  background-color: #922e2e;
+  background-color: #922e2e !important;;
   color: #fff;
 }
 
@@ -245,10 +250,42 @@ body {
   margin: 0;
 }
 
-.test-panel {
+.router-panel {
+  top: 70px;
+  left: 75px;
+  width: 200px;
+  padding: 20px;
+  justify-self: end;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: left;
+}
+
+.router-panel button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: var(--primaryColor);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.router-panel button:hover {
+  background-color: var(--primaryhoverColor);
+}
+
+.router-panel select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.router-panel h2 {
+  margin-bottom: 10px;
 }
 
 .goto-item-button {
@@ -264,6 +301,5 @@ body {
   height: 36px;
 }
 
-.test-panel h2 {
-  margin-bottom: 10px;
-}
+
+
