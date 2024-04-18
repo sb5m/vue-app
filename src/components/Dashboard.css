@@ -1,0 +1,305 @@
+/* Variables */
+:root {
+  --border: 2px solid rgba(255, 255, 255, 0.35);
+  --size1: 6px;
+  --size2: 12px;
+  --size3: 18px;
+  --size4: 24px;
+  --size5: 48px;
+  --backgroundColor: #17181a;
+  --textColor: white;
+  --primaryColor: #89babf;
+  --primaryhoverColor: #5a9198;
+  --secondTextColor: #1f2023;
+}
+
+body {
+  margin: 0;
+  padding: 40px;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--backgroundColor);
+  color: var(--textColor);
+}
+
+.panel-container {
+  display: flex;
+  justify-content: center;
+}
+
+.left-panel, .right-panel, .center-panel {
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.center-panel {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.left-panel {
+  justify-self: end;
+  width: 240px;
+}
+
+.right-panel {
+  justify-self: end;
+  width: 240px;
+}
+
+.logs-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: calc(100% - 40px);
+}
+
+
+#app {
+  max-width: 1920px;
+  max-height: 1920px;
+  height: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+}
+
+.panel-container {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-gap: 20px;
+  max-width: 1920px;
+  height: 720px;
+  margin: 0 auto;
+}
+
+.app-title {
+  font-weight: bold;
+  font-size: 28px;
+  text-align: center;
+}
+
+.separator {
+  border-bottom: 1px solid var(--primaryColor);
+  margin: 20px 0 30px;
+}
+
+.control-panel {
+  top: 70px;
+  left: 75px;
+  width: 200px;
+  padding: 20px;
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.select-wrapper {
+  display: flex;
+}
+
+.select-wrapper select {
+  margin-right: 10px;
+}
+
+.toggle-button,
+.delete-button,
+.selected-list {
+  width: 150px;
+  height: 36px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button {
+  background-color: #007bff !important;;
+  color: #fff;
+}
+
+.delete-button {
+  background-color: #922e2e !important;;
+  color: #fff;
+}
+
+.selected-list {
+  background-color: #007bff;
+  color: #fff;
+  cursor: default;
+  width: 20px;
+  height: 20px;
+  padding: 10px;
+  border: 1px solid #0056b3;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-panel h2 {
+  margin-bottom: 10px;
+}
+
+.control-panel button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: var(--primaryColor);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.control-panel button:hover {
+  background-color: var(--primaryhoverColor);
+}
+
+.control-panel select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.log-class-list {
+  width: 48%;
+  min-width: 500px;
+  padding: 20px;
+}
+
+.log-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.form-input,
+.form-button {
+  height: var(--size5);
+  box-shadow: none;
+  outline: none;
+  padding-left: var(--size2);
+  padding-right: var(--size2);
+  border-radius: var(--size1);
+  font-size: 18px;
+  margin-top: var(--size1);
+  margin-bottom: var(--size2);
+}
+
+.form-input {
+  background-color: transparent;
+  border: var(--border);
+  color: inherit;
+}
+
+.form-button {
+  cursor: pointer;
+  background-color: var(--primaryColor);
+  border: 1px solid var(--primaryColor);
+  color: var(--secondTextColor);
+  font-weight: bold;
+  outline: none;
+}
+
+.list-title {
+  font-size: 22px;
+  border-bottom: var(--border);
+  padding-bottom: var(--size1);
+}
+
+.log-list {
+  padding: 10px;
+}
+
+.log-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: var(--border);
+  padding: var(--size2) var(--size4);
+  border-radius: var(--size1);
+  margin-bottom: var(--size2);
+}
+
+.log-item span {
+  cursor: pointer;
+}
+
+.log-item span.done {
+  text-decoration: line-through;
+}
+
+.log-item button {
+  cursor: pointer;
+  font-size: var(--size2);
+  padding: var(--size1);
+  margin: 2px;
+  background-color: var(--primaryColor);
+  border: 1px solid var(--primaryColor);
+  color: var(--secondTextColor);
+  font-weight: bold;
+  border-radius: var(--size1);
+}
+
+.empty-list {
+  text-align: center;
+  opacity: 0.5;
+  margin: 0;
+}
+
+.router-panel {
+  top: 70px;
+  left: 75px;
+  width: 200px;
+  padding: 20px;
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.router-panel button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: var(--primaryColor);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.router-panel button:hover {
+  background-color: var(--primaryhoverColor);
+}
+
+.router-panel h2 {
+  margin-bottom: 10px;
+}
+
+.goto-item-button {
+  background-color: var(--primaryColor);
+  margin-top: 10px;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 150px;
+  height: 36px;
+}
+
+
+

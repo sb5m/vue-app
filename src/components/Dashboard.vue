@@ -2,65 +2,74 @@
   <div class="app">
     <h1 class="app-title">vue app</h1>
     <div class="separator"></div>
-    <div class="control-panel">
-      <h2>Control Panel</h2>
-        <select v-model="selectedLog">
-          <option v-for="(log, index) in currentList" :key="index" :value="log">{{ log.content }}</option>
-        </select>
-        <button @click="toggleHighlightRed(selectedLog)" class="highlight-button">Toggle Red</button>
-        <button @click="toggleHighlightGreen(selectedLog)" class="highlight-button">Toggle Green</button>
-        <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
-        <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
-        <button @click="moveUp(selectedLog)" class="move-button">Move Up</button>
-        <button @click="moveDown(selectedLog)" class="move-button">Move Down</button>
-        <div class="selected-list">{{ selectedVariableList }}</div>
-        <LogComments :log="selectedLog" />
-    </div>
-    <div class="logs-container">
-      <div class="log-class-list">
-        <form @submit.prevent="addLog(1)" class="log-form">
-          <label class="form-label">New Log</label>
-          <input v-model="newLog" class="form-input" name="newLog" autocomplete="off" />
-          <button class="form-button">Add Log</button>
-        </form>
-        <h2 class="list-title">Log List</h2>
-        <ul class="log-list">
-          <li v-for="(log, index) in list1" :key="index" class="log-item">
-            <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
-            <button class="remove-button">Remove</button>
-          </li>
-        </ul>
-        <h4 v-if="logs.length === 0" class="empty-list">Empty list.</h4>
+    <div class="panel-container">
+      <div class="left-panel">
+        <div class="control-panel">
+          <h2>Control Panel</h2>
+            <div class="select-wrapper">
+              <select v-model="selectedLog">
+                <option v-for="(log, index) in currentList" :key="index" :value="log">{{ log.content }}</option>
+              </select>
+              <div class="selected-list">{{ selectedVariableList }}</div>
+            </div>
+            <button @click="toggleHighlightRed(selectedLog)" class="highlight-button">Toggle Red</button>
+            <button @click="toggleHighlightGreen(selectedLog)" class="highlight-button">Toggle Green</button>
+            <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
+            <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
+            <button @click="moveUp(selectedLog)" class="move-button">Move Up</button>
+            <button @click="moveDown(selectedLog)" class="move-button">Move Down</button>
+            <LogComments :log="selectedLog" />
+        </div>
       </div>
-      <div class="log-class-list">
-        <form @submit.prevent="addLog(2)" class="log-form">
-          <label class="form-label">New Log</label>
-          <input v-model="newLog" class="form-input" name="newLog" autocomplete="off" />
-          <button class="form-button">Add Log</button>
-        </form>
-        <h2 class="list-title">Log List</h2>
-        <ul class="log-list">
-          <li v-for="(log, index) in list2" :key="'second-' + index" class="log-item">
-            <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
-            <button class="remove-button">Remove</button>
-          </li>
-        </ul>
-        <h4 v-if="logs.length === 0" class="empty-list">Empty list.</h4>
+      <div class="center-panel">
+        <div class="logs-container">
+          <div class="log-class-list">
+            <form @submit.prevent="addLog(1)" class="log-form">
+              <label class="form-label">New Log</label>
+              <input v-model="newLog" class="form-input" name="newLog" autocomplete="off" />
+              <button class="form-button">Add Log</button>
+            </form>
+            <h2 class="list-title">Log List</h2>
+            <ul class="log-list">
+              <li v-for="(log, index) in list1" :key="index" class="log-item">
+                <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
+                <button class="remove-button">Remove</button>
+              </li>
+            </ul>
+            <h4 v-if="logs.length === 0" class="empty-list">Empty list.</h4>
+          </div>
+          <div class="log-class-list">
+            <form @submit.prevent="addLog(2)" class="log-form">
+              <label class="form-label">New Log</label>
+              <input v-model="newLog" class="form-input" name="newLog" autocomplete="off" />
+              <button class="form-button">Add Log</button>
+            </form>
+            <h2 class="list-title">Log List</h2>
+            <ul class="log-list">
+              <li v-for="(log, index) in list2" :key="'second-' + index" class="log-item">
+                <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
+                <button class="remove-button">Remove</button>
+              </li>
+            </ul>
+            <h4 v-if="logs.length === 0" class="empty-list">Empty list.</h4>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="test-panel">
-      <h2>Router Panel</h2>
-      <router-link to="/item" class="goto-item-link">
-        <button class="goto-item-button">Go to Item</button>
-      </router-link>
+      <div class="right-panel">
+        <div class="router-panel">
+          <h2>Router Panel</h2>
+          <router-link to="/item" class="goto-item-link">
+            <button class="goto-item-button">Go to Item</button>
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
   <MainDisclaimer/>
 </template>
 
 <script>
-import './Dashboard.scss';
+import './Dashboard.css';
 import LogComments from './LogComments.vue';
 import MainDisclaimer from "./MainDisclaimer.vue";
 
