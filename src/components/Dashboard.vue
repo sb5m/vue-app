@@ -79,6 +79,7 @@ import { checkTasks } from './taskChecker.js';
  * @property {string} content
  * @property {number} list
  * @property {boolean} done
+ * @property {string} extraInfo
  * @property {string} timestamp
  * @property {boolean} highlightedRed
  * @property {boolean} highlightedGreen
@@ -96,11 +97,14 @@ export default {
       newLog2: '',
       defaultData: [
         {
-          done: false,
+          id: 0,
           content: 'This is a logger test',
+          list: null,
+          done: false,
           extraInfo: 'Additional information',
           timestamp: new Date().toISOString(),
-          id: 1
+          highlightedRed: false,
+          highlightedGreen: false
         },
       ],
       logs: [],
@@ -108,9 +112,6 @@ export default {
       selectedLog: null,
       selectedList: 1,
       logIdCounter: 1,
-      tasks: [
-      { name: 'Task 1', completionTime: '20/04/2023, 00:53:40' }
-      ]
     };
   },
   created() {
@@ -119,6 +120,9 @@ export default {
       this.logs = JSON.parse(storedLogs);
     }
     checkTasks(this.tasks);
+    setInterval(() => {
+      checkTasks(this.tasks);
+    }, 10 * 60 * 1000); // 10 minutes in milliseconds
   },
   computed: {
     currentList() {
