@@ -119,9 +119,9 @@ export default {
     if (storedLogs) {
       this.logs = JSON.parse(storedLogs);
     }
-    checkTasks(this.tasks);
+    checkTasks(this.logs);
     setInterval(() => {
-      checkTasks(this.tasks);
+      checkTasks(this.logs);
     }, 10 * 60 * 1000); // 10 minutes in milliseconds
   },
   computed: {
