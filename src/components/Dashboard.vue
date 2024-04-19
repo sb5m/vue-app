@@ -71,6 +71,7 @@
 import './Dashboard.css';
 import LogComments from './LogComments.vue';
 import MainDisclaimer from "./MainDisclaimer.vue";
+import { checkTasks } from './taskChecker.js';
 
 /**
  * @typedef {Object} Log
@@ -106,7 +107,10 @@ export default {
       storageKey: 'Logs',
       selectedLog: null,
       selectedList: 1,
-      logIdCounter: 1 
+      logIdCounter: 1,
+      tasks: [
+      { name: 'Task 1', completionTime: '20/04/2023, 00:53:40' }
+      ]
     };
   },
   created() {
@@ -114,6 +118,7 @@ export default {
     if (storedLogs) {
       this.logs = JSON.parse(storedLogs);
     }
+    checkTasks(this.tasks);
   },
   computed: {
     currentList() {
