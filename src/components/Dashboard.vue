@@ -17,7 +17,7 @@
             <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
             <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
             <button @click="moveUp(selectedLog)" class="move-button">Move Up</button>
-            <button @click="moveDown(selectedLog)" class="move-button" :disabled="isLast(selectedLog)">Move Down</button>
+            <button @click="moveDown(selectedLog)" class="move-button">Move Down</button>
             <LogComments :log="selectedLog" />
         </div>
       </div>
@@ -132,6 +132,7 @@ export default {
   methods: {
     toggleLists() {
       this.selectedList = this.selectedList === 1 ? 2 : 1;
+      this.selectedLog = null;
     },
     deleteLog(log) {
       const index = this.logs.indexOf(log);
@@ -194,20 +195,23 @@ export default {
       localStorage.setItem(this.storageKey, storageData);
     },
     toggleHighlightRed(log) {
-      log.highlightedRed = !log.highlightedRed;
-      if (log.highlightedRed) {
-        log.highlightedGreen = false;
+      if (log) {
+        log.highlightedRed = !log.highlightedRed;
+        if (log.highlightedRed) {
+          log.highlightedGreen = false;
+        }
+        this.saveData();
       }
     },
+
     toggleHighlightGreen(log) {
-      log.highlightedGreen = !log.highlightedGreen;
-      if (log.highlightedGreen) {
-        log.highlightedRed = false;
+      if (log) {
+        log.highlightedGreen = !log.highlightedGreen;
+        if (log.highlightedGreen) {
+          log.highlightedRed = false;
+        }
+        this.saveData();
       }
-    },
-    isLast(log) {
-      const index = this.logs.indexOf(log);
-      return index === this.logs.length - 1;
     },
   },
 };
