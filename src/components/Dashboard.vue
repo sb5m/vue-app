@@ -17,7 +17,7 @@
             <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
             <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
             <button @click="moveUp(selectedLog)" class="move-button">Move Up</button>
-            <button @click="moveDown(selectedLog)" class="move-button">Move Down</button>
+            <button @click="moveDown(selectedLog)" class="move-button" :disabled="isLast(selectedLog)">Move Down</button>
             <LogComments :log="selectedLog" />
         </div>
       </div>
@@ -26,45 +26,44 @@
           <div class="log-class-list">
             <form @submit.prevent="addLog(1)" class="log-form">
               <label class="form-label">New Log</label>
-              <input v-model="newLog" class="form-input" name="newLog" autocomplete="off" />
+              <input v-model="newLog1" class="form-input" name="newLog" autocomplete="off" />
               <button class="form-button">Add Log</button>
             </form>
             <h2 class="list-title">Log List</h2>
             <ul class="log-list">
               <li v-for="(log, index) in list1" :key="index" class="log-item">
                 <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
-                <button class="remove-button">Remove</button>
+                <button class="remove-button" @click="deleteLog(log)">Remove</button>
               </li>
             </ul>
-            <h4 v-if="logs.length === 0" class="empty-list">Empty list.</h4>
+            <h4 v-if="list1.length === 0" class="empty-list">Empty list.</h4>
           </div>
           <div class="log-class-list">
             <form @submit.prevent="addLog(2)" class="log-form">
               <label class="form-label">New Log</label>
-              <input v-model="newLog" class="form-input" name="newLog" autocomplete="off" />
+              <input v-model="newLog2" class="form-input" name="newLog" autocomplete="off" />
               <button class="form-button">Add Log</button>
             </form>
             <h2 class="list-title">Log List</h2>
             <ul class="log-list">
               <li v-for="(log, index) in list2" :key="'second-' + index" class="log-item">
                 <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
-                <button class="remove-button">Remove</button>
+                <button class="remove-button" @click="deleteLog(log)">Remove</button>
               </li>
             </ul>
-            <h4 v-if="logs.length === 0" class="empty-list">Empty list.</h4>
+            <h4 v-if="list2.length === 0" class="empty-list">Empty list.</h4>
           </div>
         </div>
       </div>
       <div class="right-panel">
         <div class="router-panel">
           <h2>Router Panel</h2>
-          <router-link to="/item" class="goto-item-link">
-            <button class="goto-item-button">Go to Item</button>
-          </router-link>
+          <button @click="$router.push('/item')" class="goto-item-button">Go to Item</button>
         </div>
       </div>
     </div>
   </div>
+  <!-- MainDisclaimer component -->
   <MainDisclaimer/>
 </template>
 
@@ -76,8 +75,10 @@ import MainDisclaimer from "./MainDisclaimer.vue";
 /**
  * @typedef {Object} Log
  * @property {number} id
- * @property {boolean} done
  * @property {string} content
+ * @property {number} list
+ * @property {boolean} done
+ * @property {string} timestamp
  * @property {boolean} highlightedRed
  * @property {boolean} highlightedGreen
  */
@@ -90,7 +91,8 @@ export default {
   },
   data() {
     return {
-      newLog: '',
+      newLog1: '',
+      newLog2: '',
       defaultData: [
         {
           done: false,
@@ -131,43 +133,55 @@ export default {
     toggleLists() {
       this.selectedList = this.selectedList === 1 ? 2 : 1;
     },
-    deleteLog(selectedLog) {
-      const index = this.logs.indexOf(selectedLog);
+    deleteLog(log) {
+      const index = this.logs.indexOf(log);
       if (index !== -1) {
         this.logs.splice(index, 1);
         this.saveData();
       }
     },
     moveUp(selectedLog) {
-      const index = this.logs.indexOf(selectedLog);
-      if (index > 0) {
-        const temp = this.logs[index];
-        this.logs.splice(index, 1);
-        this.logs.splice(index - 1, 0, temp);
-        this.saveData();
+      if (selectedLog) {
+        const index = this.logs.indexOf(selectedLog);
+        if (index > 0) {
+          const temp = this.logs[index];
+          this.logs.splice(index, 1);
+          this.logs.splice(index - 1, 0, temp);
+          this.saveData();
+        }
       }
     },
     moveDown(selectedLog) {
-      const index = this.logs.indexOf(selectedLog);
-      if (index < this.logs.length - 1) {
-        const temp = this.logs[index];
-        this.logs.splice(index, 1);
-        this.logs.splice(index + 1, 0, temp);
-        this.saveData();
+      if (selectedLog) {
+        const index = this.logs.indexOf(selectedLog);
+        if (index < this.logs.length - 1) {
+          const temp = this.logs[index];
+          this.logs.splice(index, 1);
+          this.logs.splice(index + 1, 0, temp);
+          this.saveData();
+        }
       }
     },
     addLog(listNumber) {
-      if (this.newLog) {
+      let newLogContent = '';
+      if (listNumber === 1) {
+        newLogContent = this.newLog1;
+        this.newLog1 = '';
+      } else if (listNumber === 2) {
+        newLogContent = this.newLog2;
+        this.newLog2 = '';
+      }
+
+      if (newLogContent.trim() !== '') {
         this.logs.push({
           id: this.logIdCounter++,
-          content: this.newLog,
-          list: listNumber, // Assign to the specified list
+          content: newLogContent,
+          list: listNumber,
           done: false,
           timestamp: new Date().toLocaleString(),
           highlightedRed: false,
           highlightedGreen: false,
         });
-        this.newLog = '';
         this.saveData();
       }
     },
@@ -190,6 +204,10 @@ export default {
       if (log.highlightedGreen) {
         log.highlightedRed = false;
       }
+    },
+    isLast(log) {
+      const index = this.logs.indexOf(log);
+      return index === this.logs.length - 1;
     },
   },
 };
