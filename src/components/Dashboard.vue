@@ -83,6 +83,7 @@ import { checkTasks } from './taskChecker.js';
  * @property {string} timestamp
  * @property {boolean} highlightedRed
  * @property {boolean} highlightedGreen
+ * @property {boolean} isTask
  */
 
 export default {
@@ -104,7 +105,8 @@ export default {
           extraInfo: 'Additional information',
           timestamp: new Date().toISOString(),
           highlightedRed: false,
-          highlightedGreen: false
+          highlightedGreen: false,
+          isTask: false
         },
       ],
       logs: [],

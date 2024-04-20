@@ -19,7 +19,15 @@
         </div>
         <div>
           <label for="timestamp">Timestamp:</label>
-          <input type="text" id="timestamp" v-model="log.timestamp" />
+          <input type="text" id="timestamp" v-model="log.timestamp" @input="validateTimestamp" />
+          <span v-if="!isTimestampValid" class="error-message">Please enter a valid timestamp format (DD/MM/YYYY, HH:MM:SS).</span>
+        </div>
+        <div>
+          <label for="isTask">Is this log a task?:</label>
+          <select id="isTask" v-model="log.isTask">
+            <option :value="true">Yes</option>
+            <option :value="false">No</option>
+          </select>
         </div>
         <button @click="saveLogChanges">Save Changes</button>
       </div>
@@ -31,7 +39,7 @@
       </router-link>
     </div>
 </template>
-  
+
 <script>
 import './LogMod.css';
 import './Dashboard.css';
@@ -42,7 +50,8 @@ export default {
     return {
       selectedLogId: null,
       log: null,
-      logs: []
+      logs: [],
+      isTimestampValid: true
     };
   },
   created() {
@@ -60,11 +69,18 @@ export default {
     saveLogChanges() {
       console.log("Log details saved:", this.log);
       localStorage.setItem('Logs', JSON.stringify(this.logs));
-    }
+    },
+    validateTimestamp() {
+      // Regular expression for validating timestamp format: DD/MM/YYYY, HH:MM:SS
+      const timestampRegex = /^\d{2}\/\d{2}\/\d{4}, \d{2}:\d{2}:\d{2}$/;
+      this.isTimestampValid = timestampRegex.test(this.log.timestamp);
+    },
   }
 };
 </script>
-  
-<style scoped>
 
+<style scoped>
+.error-message {
+  color: red;
+}
 </style>
