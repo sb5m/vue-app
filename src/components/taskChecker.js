@@ -15,7 +15,7 @@ export function checkTasks(logs) {
       console.log(`Current time: ${currentTime}, Log time: ${logTime}`);
 
       if (currentTime >= logTime) {
-        const confirmMessage = `Log '${log.content}' is due now or overdue! Do you want to continue?`;
+        const confirmMessage = `Log '${log.content}' is overdue! Do you want to continue?`;
         const confirmed = window.confirm(confirmMessage);
         if (confirmed) {
           console.log("User confirmed to continue.");

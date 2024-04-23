@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import './Variables.css';
 import './Dashboard.css';
 import LogComments from './LogComments.vue';
 import MainDisclaimer from "./MainDisclaimer.vue";
@@ -124,7 +125,7 @@ export default {
     checkTasks(this.logs);
     setInterval(() => {
       checkTasks(this.logs);
-    }, 10 * 60 * 1000); // 10 minutes in milliseconds
+    }, 5 * 60 * 1000); // 5 minutes in milliseconds
   },
   computed: {
     currentList() {
@@ -184,15 +185,18 @@ export default {
         this.newLog2 = '';
       }
 
+      // Default log values here
       if (newLogContent.trim() !== '') {
         this.logs.push({
           id: this.logIdCounter++,
           content: newLogContent,
           list: listNumber,
           done: false,
+          extraInfo: "",
           timestamp: new Date().toLocaleString(),
           highlightedRed: false,
           highlightedGreen: false,
+          isTask: false
         });
         this.saveData();
       }
@@ -230,12 +234,12 @@ export default {
 
 <style scoped>
 .highlight-red {
-  background-color: red;
+  background-color: #9c2727;
   color: white;
   border-radius: 3px;
 }
 .highlight-green {
-  background-color: green;
+  background-color: #1d611d;
   color: white;
   border-radius: 3px;
 }

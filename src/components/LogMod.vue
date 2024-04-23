@@ -42,7 +42,6 @@
 
 <script>
 import './LogMod.css';
-import './Dashboard.css';
 
 export default {
   name: 'LogDetails',
