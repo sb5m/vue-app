@@ -68,11 +68,11 @@
 </template>
 
 <script>
-import './Variables.css';
+import '../assets/css/Variables.css';
 import './Dashboard.css';
-import LogComments from './LogComments.vue';
-import MainDisclaimer from "./MainDisclaimer.vue";
-import { checkTasks } from './taskChecker.js';
+import LogComments from '../components/LogComments.vue';
+import MainDisclaimer from "../components/MainDisclaimer.vue";
+import { checkTasks } from '../components/taskChecker.js';
 
 /**
  * @typedef {Object} Log

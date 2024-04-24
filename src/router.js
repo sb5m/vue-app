@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Todo from './components/Dashboard.vue';
-import LogMod from './components/LogMod.vue';
+import Todo from './views/Dashboard.vue';
+import LogMod from './views/LogMod.vue';
 
 const routes = [
   {
