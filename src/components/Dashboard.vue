@@ -68,9 +68,11 @@
 </template>
 
 <script>
+import './Variables.css';
 import './Dashboard.css';
 import LogComments from './LogComments.vue';
 import MainDisclaimer from "./MainDisclaimer.vue";
+import { checkTasks } from './taskChecker.js';
 
 /**
  * @typedef {Object} Log
@@ -78,9 +80,11 @@ import MainDisclaimer from "./MainDisclaimer.vue";
  * @property {string} content
  * @property {number} list
  * @property {boolean} done
+ * @property {string} extraInfo
  * @property {string} timestamp
  * @property {boolean} highlightedRed
  * @property {boolean} highlightedGreen
+ * @property {boolean} isTask
  */
 
 export default {
@@ -95,18 +99,22 @@ export default {
       newLog2: '',
       defaultData: [
         {
-          done: false,
+          id: 0,
           content: 'This is a logger test',
+          list: null,
+          done: false,
           extraInfo: 'Additional information',
           timestamp: new Date().toISOString(),
-          id: 1
+          highlightedRed: false,
+          highlightedGreen: false,
+          isTask: false
         },
       ],
       logs: [],
       storageKey: 'Logs',
       selectedLog: null,
       selectedList: 1,
-      logIdCounter: 1 
+      logIdCounter: 1,
     };
   },
   created() {
@@ -114,6 +122,10 @@ export default {
     if (storedLogs) {
       this.logs = JSON.parse(storedLogs);
     }
+    checkTasks(this.logs);
+    setInterval(() => {
+      checkTasks(this.logs);
+    }, 5 * 60 * 1000); // 5 minutes in milliseconds
   },
   computed: {
     currentList() {
@@ -173,15 +185,18 @@ export default {
         this.newLog2 = '';
       }
 
+      // Default log values here
       if (newLogContent.trim() !== '') {
         this.logs.push({
           id: this.logIdCounter++,
           content: newLogContent,
           list: listNumber,
           done: false,
+          extraInfo: "",
           timestamp: new Date().toLocaleString(),
           highlightedRed: false,
           highlightedGreen: false,
+          isTask: false
         });
         this.saveData();
       }
@@ -219,12 +234,12 @@ export default {
 
 <style scoped>
 .highlight-red {
-  background-color: red;
+  background-color: #9c2727;
   color: white;
   border-radius: 3px;
 }
 .highlight-green {
-  background-color: green;
+  background-color: #1d611d;
   color: white;
   border-radius: 3px;
 }

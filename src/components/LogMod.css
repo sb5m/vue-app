@@ -1,19 +1,4 @@
-/* Variables */
-:root {
-  --border: 2px solid rgba(255, 255, 255, 0.35);
-  --size1: 6px;
-  --size2: 12px;
-  --size3: 18px;
-  --size4: 24px;
-  --size5: 48px;
-  --backgroundColor: #17181a;
-  --textColor: white;
-  --primaryColor: #89babf;
-  --primaryhoverColor: #5a9198;
-  --secondTextColor: #1f2023;
-}
 
-/* Body */
 body {
   margin: 0;
   padding: 40px;
@@ -24,7 +9,6 @@ body {
   color: var(--textColor);
 }
 
-/* Log Details */
 .log-details {
   max-width: 800px;
   margin-left: auto;

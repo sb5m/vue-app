@@ -1,0 +1,14 @@
+/* Variables */
+:root {
+    --border: 2px solid rgba(255, 255, 255, 0.35);
+    --size1: 6px;
+    --size2: 12px;
+    --size3: 18px;
+    --size4: 24px;
+    --size5: 48px;
+    --backgroundColor: #17181a;
+    --textColor: white;
+    --primaryColor: #487f85;
+    --primaryhoverColor: #5a9198;
+    --secondTextColor: #1f2023;
+  }
