@@ -187,13 +187,14 @@ export default {
 
       // Default log values here
       if (newLogContent.trim() !== '') {
+        const timestamp = new Date().toLocaleString();
         this.logs.push({
           id: this.logIdCounter++,
           content: newLogContent,
           list: listNumber,
           done: false,
           extraInfo: "",
-          timestamp: new Date().toLocaleString(),
+          timestamp: timestamp,
           highlightedRed: false,
           highlightedGreen: false,
           isTask: false
