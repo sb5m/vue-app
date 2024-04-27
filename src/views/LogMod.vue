@@ -61,13 +61,19 @@ export default {
   },
   watch: {
     selectedLogId(newId) {
-      this.log = this.logs.find(log => log.id === parseInt(newId));
-    }
+    this.log = this.logs.find(log => log.id === parseInt(newId)) || {};
+  }
   },
   methods: {
     saveLogChanges() {
       console.log("Log details saved:", this.log);
-      localStorage.setItem('Logs', JSON.stringify(this.logs));
+      const index = this.logs.findIndex(log => log.id === this.log.id);
+      if (index !== -1) {
+        this.logs[index] = this.log;
+        localStorage.setItem('Logs', JSON.stringify(this.logs));
+      } else {
+        console.error("Log not found in logs array.");
+      }
     },
     validateTimestamp() {
       // Regular expression for validating timestamp format: DD/MM/YYYY, HH:MM:SS

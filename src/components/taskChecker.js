@@ -3,8 +3,8 @@ export function checkTasks(logs) {
 
   const currentTime = new Date().getTime();
 
-  logs.forEach(log => {
-    if (log.isTask) { // Check if it's a task
+  const updatedLogs = logs.map(log => {
+    if (log.isTask) {
       const [datePart, timePart] = log.timestamp.split(', ');
       const [day, month, year] = datePart.split('/').map(Number);
       const [hour, minute, second] = timePart.split(':').map(Number);
@@ -19,12 +19,18 @@ export function checkTasks(logs) {
         const confirmed = window.confirm(confirmMessage);
         if (confirmed) {
           console.log("User confirmed to continue.");
-          // You can put further actions here if the user confirms
+          return { ...log, isTask: false }; // Create a new log object with isTask set to false
         } else {
           console.log("User canceled the operation.");
-          // You can put actions for cancellation here
+          return log; // Return original log if the user cancels
         }
       }
     }
+    return log; // Return original log if it's not a task
   });
+
+
+  console.log('Updated logs:', updatedLogs);
+
+  localStorage.setItem('Logs', JSON.stringify(updatedLogs));
 }
