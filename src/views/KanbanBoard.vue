@@ -89,7 +89,7 @@ export default {
   },
   data() {
     return {
-      columns: this.loadColumnsFromLocalStorage(), // Load columns from localStorage
+      columns: this.loadColumnsFromLocalStorage(),
       selectedLog: null,
       selectedList: 1,
     };
@@ -98,7 +98,7 @@ export default {
     const storedLogs = localStorage.getItem('Logs');
     if (storedLogs) {
       this.logs = JSON.parse(storedLogs);
-      this.mapLogsToColumns(); // Map logs to columns
+      this.mapLogsToColumns();
     }
   },
   computed: {
@@ -120,7 +120,6 @@ export default {
     },
   },
   methods: {
-    // Load columns from localStorage if available, otherwise set default
     loadColumnsFromLocalStorage() {
       const savedColumns = localStorage.getItem("columns");
       if (savedColumns) {
@@ -141,15 +140,15 @@ export default {
     // Map logs to the correct Kanban columns based on their 'list' property
     mapLogsToColumns() {
       this.columns.forEach(column => {
-        column.tasks = []; // Clear the column tasks
+        column.tasks = [];
       });
 
       this.logs.forEach(log => {
         const task = {
           id: log.id,
-          title: log.content, // Assuming 'content' contains the task title
+          title: log.content,
           date: log.timestamp,
-          type: log.isTask ? 'Task' : 'Other', // You can customize this based on your needs
+          type: log.isTask ? 'Task' : 'Other',
           done: log.done,
           highlightedRed: log.highlightedRed,
           highlightedOrange: log.highlightedOrange,
@@ -168,7 +167,6 @@ export default {
       });
     },
 
-    // Add a new task to the column
     addTask() {
       const title = prompt("Enter task title:");
       const type = prompt("Enter task type:");
@@ -176,144 +174,48 @@ export default {
       if (title && type) {
         const newTask = {
           id: Date.now(),
-          title: title,
-          date: new Date().toLocaleDateString(),
-          type: type,
+          content: title,
+          list: 1,
+          done: false,
+          extraInfo: "",
+          timestamp: new Date().toLocaleString(),
+          highlightedRed: false,
+          highlightedOrange: false,
+          highlightedGreen: false,
+          isTask: false
         };
-        this.columns[0].tasks.push(newTask);
-        this.saveColumnsToLocalStorage(); // Save changes to localStorage
+        
+        // Add task to the "Backlog" column
+        this.columns[0].tasks.push({
+          id: newTask.id,
+          title: newTask.content,
+          date: newTask.timestamp,
+          type: type,
+        });
+
+        // Add new task to logs and save to localStorage
+        this.logs.push(newTask);
+        this.saveData();
+
+        // Save columns data to localStorage
+        this.saveColumnsToLocalStorage();
       } else {
         alert("Both title and type are required!");
       }
     },
 
-    // Delete task
-    deleteTask(taskToDelete) {
-      for (let column of this.columns) {
-        const taskIndex = column.tasks.findIndex(task => task.id === taskToDelete.id);
-        if (taskIndex !== -1) {
-          column.tasks.splice(taskIndex, 1); // Remove task from column
-          break; // Exit loop after removing task
-        }
-      }
-      this.saveColumnsToLocalStorage(); // Save changes to localStorage
-    },
-
     // Save columns data to localStorage
     saveColumnsToLocalStorage() {
       localStorage.setItem("columns", JSON.stringify(this.columns));
+    },
+
+    // Save logs data to localStorage
+    saveData() {
+      localStorage.setItem("Logs", JSON.stringify(this.logs));
     }
   },
 };
 </script>
 
-<style scoped>
-/* Container for the entire Kanban board and task list */
-#app {
-  display: flex;
-  justify-content: flex-start;
-  gap: 40px;
-  padding: 20px;
-  min-height: 100vh;
-}
 
-/* Container for the Kanban board */
-.kanban-container {
-  flex: 1; /* Takes up remaining space */
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* Kanban board with multiple columns */
-.kanban-board {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-/* Each column in the Kanban board */
-.kanban-column {
-  background-color: #e3e6e8;
-  border-radius: 6px;
-  padding: 16px;
-  min-width: 230px;
-  max-width: 230px;
-}
-
-/* Title of each column */
-.column-title {
-  font-weight: bold;
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 12px;
-}
-
-/* Style for individual task cards */
-.task-card {
-  margin-top: 8px;
-}
-
-/* Ghost card that shows up during drag */
-.ghost-card {
-  opacity: 0.5;
-  background-color: #d1d8df;
-  border: 1px dashed #333;
-}
-
-/* Style for the Add Task button */
-.add-task-btn {
-  margin-top: 12px;
-  padding: 8px 16px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.add-task-btn:hover {
-  background-color: #45a049;
-}
-
-/* Main panel for listing tasks */
-.main-panel {
-  width: 300px; /* Fixed width for the main panel */
-  margin-top: 40px;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.main-panel h2 {
-  font-size: 24px;
-  margin-bottom: 16px;
-}
-
-.main-panel ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.main-panel li {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-}
-
-.delete-btn {
-  padding: 4px 8px;
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.delete-btn:hover {
-  background-color: #e53935;
-}
-</style>
+<style src="./KanbanBoard.css"></style>

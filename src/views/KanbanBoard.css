@@ -1,0 +1,108 @@
+/* Container for the entire Kanban board and task list */
+#app {
+    display: flex;
+    justify-content: flex-start;
+    gap: 40px;
+    padding: 20px;
+    min-height: 100vh;
+  }
+  
+  /* Container for the Kanban board */
+  .kanban-container {
+    flex: 1; /* Takes up remaining space */
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Kanban board with multiple columns */
+  .kanban-board {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  
+  /* Each column in the Kanban board */
+  .kanban-column {
+    background-color: #e3e6e8;
+    border-radius: 6px;
+    padding: 16px;
+    min-width: 230px;
+    max-width: 230px;
+  }
+  
+  /* Title of each column */
+  .column-title {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 12px;
+  }
+  
+  /* Style for individual task cards */
+  .task-card {
+    margin-top: 8px;
+  }
+  
+  /* Ghost card that shows up during drag */
+  .ghost-card {
+    opacity: 0.5;
+    background-color: #d1d8df;
+    border: 1px dashed #333;
+  }
+  
+  /* Style for the Add Task button */
+  .add-task-btn {
+    margin-top: 12px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-task-btn:hover {
+    background-color: #45a049;
+  }
+  
+  /* Main panel for listing tasks */
+  .main-panel {
+    width: 300px; /* Fixed width for the main panel */
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .main-panel h2 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  .main-panel ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .main-panel li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .delete-btn {
+    padding: 4px 8px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .delete-btn:hover {
+    background-color: #e53935;
+  }
