@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div class="log-container">
     <h2>Log Raw Data:</h2>
-    <!-- <pre>{{ log }}</pre> -->
 
     <button @click="downloadAllLogs">Download Logs</button>
     
@@ -67,3 +66,18 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.log-container {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+button,
+input[type="file"] {
+  display: block;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+</style>

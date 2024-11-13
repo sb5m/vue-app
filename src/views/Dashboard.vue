@@ -60,6 +60,7 @@
         <div class="router-panel">
           <h2>Router Panel</h2>
           <button @click="$router.push('/item')" class="goto-item-button">Go to Item</button>
+          <button @click="$router.push('/kanban')" class="goto-item-button">Kanban Board</button>
         </div>
       </div>
     </div>
@@ -73,7 +74,19 @@ import '../assets/css/Variables.css';
 import './Dashboard.css';
 import LogComments from '../components/LogComments.vue';
 import MainDisclaimer from "../components/MainDisclaimer.vue";
-import { checkTasks } from '../components/taskChecker.js';
+import { checkTasks } from '../js/taskChecker.js';
+import {
+  toggleLists,
+  deleteLog,
+  moveUp,
+  moveDown,
+  addLog,
+  doneLog,
+  saveData,
+  toggleHighlightRed,
+  toggleHighlightOrange,
+  toggleHighlightGreen
+} from '../js/logMethods.js';
 
 /**
  * @typedef {Object} Log
@@ -145,104 +158,35 @@ export default {
   },
   methods: {
     toggleLists() {
-      this.selectedList = this.selectedList === 1 ? 2 : 1;
-      this.selectedLog = null;
+      toggleLists(this);
     },
     deleteLog(log) {
-      const index = this.logs.indexOf(log);
-      if (index !== -1) {
-        this.logs.splice(index, 1);
-        this.saveData();
-      }
+      deleteLog(this, log);
     },
     moveUp(selectedLog) {
-      if (selectedLog) {
-        const index = this.logs.indexOf(selectedLog);
-        if (index > 0) {
-          const temp = this.logs[index];
-          this.logs.splice(index, 1);
-          this.logs.splice(index - 1, 0, temp);
-          this.saveData();
-        }
-      }
+      moveUp(this, selectedLog);
     },
     moveDown(selectedLog) {
-      if (selectedLog) {
-        const index = this.logs.indexOf(selectedLog);
-        if (index < this.logs.length - 1) {
-          const temp = this.logs[index];
-          this.logs.splice(index, 1);
-          this.logs.splice(index + 1, 0, temp);
-          this.saveData();
-        }
-      }
+      moveDown(this, selectedLog);
     },
     addLog(listNumber) {
-      let newLogContent = '';
-      if (listNumber === 1) {
-        newLogContent = this.newLog1;
-        this.newLog1 = '';
-      } else if (listNumber === 2) {
-        newLogContent = this.newLog2;
-        this.newLog2 = '';
-      }
-
-      // Default log values here
-      if (newLogContent.trim() !== '') {
-        const timestamp = new Date().toLocaleString();
-        this.logs.push({
-          id: this.logIdCounter++,
-          content: newLogContent,
-          list: listNumber,
-          done: false,
-          extraInfo: "",
-          timestamp: timestamp,
-          highlightedRed: false,
-          highlightedOrange: false,
-          highlightedGreen: false,
-          isTask: false
-        });
-        this.saveData();
-      }
+      addLog(this, listNumber);
     },
     doneLog(log) {
-      log.done = !log.done;
-      this.saveData();
+      doneLog(this, log);
     },
     saveData() {
-      const storageData = JSON.stringify(this.logs);
-      localStorage.setItem(this.storageKey, storageData);
+      saveData(this);
     },
     toggleHighlightRed(log) {
-      if (log) {
-        log.highlightedRed = !log.highlightedRed;
-        if (log.highlightedRed) {
-          log.highlightedOrange = false;
-          log.highlightedGreen = false;
-        }
-        this.saveData();
-      }
+      toggleHighlightRed(this, log);
     },
     toggleHighlightOrange(log) {
-      if (log) {
-        log.highlightedOrange = !log.highlightedOrange;
-        if (log.highlightedOrange) {
-          log.highlightedRed = false;
-          log.highlightedGreen = false;
-        }
-        this.saveData();
-      }
+      toggleHighlightOrange(this, log);
     },
     toggleHighlightGreen(log) {
-      if (log) {
-        log.highlightedGreen = !log.highlightedGreen;
-        if (log.highlightedGreen) {
-          log.highlightedOrange = false;
-          log.highlightedRed = false;
-        }
-        this.saveData();
-      }
-    },
+      toggleHighlightGreen(this, log);
+    }
   },
 };
 </script>
