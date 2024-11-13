@@ -13,6 +13,7 @@
             </select>
             <div class="selected-list">{{ selectedVariableList }}</div>
           </div>
+          <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
           <button @click="addTask(selectedLog)" class="highlight-button">Add Task</button>
           <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
           <LogComments :log="selectedLog" />
@@ -77,6 +78,7 @@ import draggable from "vuedraggable";
 import TaskCard from "../components/TaskCard.vue";
 import MainDisclaimer from "../components/MainDisclaimer.vue";
 import {
+  deleteLog,
   toggleLists,
 } from '../js/logMethods.js';
 
@@ -136,7 +138,17 @@ export default {
     toggleLists() {
       toggleLists(this);
     },
-    
+    deleteLog(log) {
+      if (!log) {
+        alert("No log selected to delete.");
+        return;
+      }
+      
+      deleteLog(this, log);
+      this.mapLogsToColumns();
+      this.saveData();
+    },
+
     // Map logs to the correct Kanban columns based on their 'list' property
     mapLogsToColumns() {
       this.columns.forEach(column => {
@@ -150,12 +162,13 @@ export default {
           date: log.timestamp,
           type: log.isTask ? 'Task' : 'Other',
           done: log.done,
+          status: log.status,
           highlightedRed: log.highlightedRed,
           highlightedOrange: log.highlightedOrange,
           highlightedGreen: log.highlightedGreen,
         };
 
-        if (log.list === 1) {
+        if (log.status === 1) {
           this.columns[0].tasks.push(task); // Backlog
         } else if (log.list === 2) {
           this.columns[1].tasks.push(task); // In Progress

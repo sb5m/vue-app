@@ -6,7 +6,7 @@ export function toggleLists(context) {
   }
   
   export function deleteLog(context, log) {
-    const index = context.logs.indexOf(log);
+    const index = context.logs.findIndex(item => item.id === log.id);
     if (index !== -1) {
       context.logs.splice(index, 1);
       saveData(context);
@@ -54,6 +54,7 @@ export function toggleLists(context) {
         content: newLogContent,
         list: listNumber,
         done: false,
+        status: 1,
         extraInfo: "",
         timestamp: timestamp,
         highlightedRed: false,
