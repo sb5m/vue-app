@@ -39,6 +39,7 @@
                 ghost-class="ghost-card"
                 group="tasks"
                 item-key="id"
+                @change="updateTaskStatus($event, column)"
               >
                 <template #item="{ element: task }">
                   <task-card :task="task" class="task-card"></task-card>
@@ -124,16 +125,16 @@ export default {
   methods: {
     loadColumnsFromLocalStorage() {
       const savedColumns = localStorage.getItem("columns");
-      if (savedColumns) {
-        return JSON.parse(savedColumns);
-      } else {
-        return [
-          { title: "Backlog", tasks: [] },
-          { title: "In Progress", tasks: [] },
-          { title: "Review", tasks: [] },
-          { title: "Done", tasks: [] }
-        ];
-      }
+      return savedColumns ? JSON.parse(savedColumns) : this.defaultColumns();
+    },
+
+    defaultColumns() {
+      return [
+        { title: "Backlog", tasks: [] },
+        { title: "In Progress", tasks: [] },
+        { title: "Review", tasks: [] },
+        { title: "Done", tasks: [] }
+      ];
     },
     toggleLists() {
       toggleLists(this);
@@ -170,11 +171,11 @@ export default {
 
         if (log.status === 1) {
           this.columns[0].tasks.push(task); // Backlog
-        } else if (log.list === 2) {
+        } else if (log.status === 2) {
           this.columns[1].tasks.push(task); // In Progress
-        } else if (log.list === 3) {
+        } else if (log.status === 3) {
           this.columns[2].tasks.push(task); // Review
-        } else if (log.list === 4) {
+        } else if (log.status === 4) {
           this.columns[3].tasks.push(task); // Done
         }
       });
@@ -214,6 +215,37 @@ export default {
         this.saveColumnsToLocalStorage();
       } else {
         alert("Both title and type are required!");
+      }
+    },
+
+    updateTaskStatus(event, column) {
+      console.log("updateTaskStatus called with column:", column.title, "event:", event);
+
+      if (event.added) {
+        const addedTask = event.added.element;
+
+        const logToUpdate = this.logs.find(log => log.id === addedTask.id);
+        if (logToUpdate) {
+          logToUpdate.status = this.getStatusFromColumnTitle(column.title);
+          console.log("Updated Log Status:", logToUpdate.status);
+
+          this.saveData();
+        }
+      }
+    },
+
+    getStatusFromColumnTitle(title) {
+      switch (title) {
+        case "Backlog":
+          return 1;
+        case "In Progress":
+          return 2;
+        case "Review":
+          return 3;
+        case "Done":
+          return 4;
+        default:
+          return 1; // Default to Backlog if no match
       }
     },
 
