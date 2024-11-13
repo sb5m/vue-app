@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Todo from './views/Dashboard.vue';
 import LogMod from './views/LogMod.vue';
+import Kanban from './views/KanbanBoard.vue';
 
 const routes = [
   {
@@ -11,7 +12,12 @@ const routes = [
   path: '/item', 
   component: LogMod,
   props: true
-  }
+  },
+  {
+    path: '/kanban', 
+    component: Kanban,
+    props: true
+    }
 ];
 
 const router = createRouter({
