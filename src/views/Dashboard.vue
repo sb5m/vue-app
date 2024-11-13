@@ -80,6 +80,7 @@ import {
   deleteLog,
   moveUp,
   moveDown,
+  initializeLogs,
   addLog,
   doneLog,
   saveData,
@@ -135,6 +136,8 @@ export default {
     };
   },
   created() {
+    initializeLogs();
+    
     const storedLogs = localStorage.getItem(this.storageKey);
     if (storedLogs) {
       this.logs = JSON.parse(storedLogs);

@@ -36,6 +36,13 @@ export function toggleLists(context) {
       }
     }
   }
+
+  export function initializeLogs() {
+    let logIdCounter = localStorage.getItem('logIdCounter');
+    if (!logIdCounter) {
+      localStorage.setItem('logIdCounter', 1);
+    }
+  }
   
   export function addLog(context, listNumber) {
     let newLogContent = '';
@@ -49,8 +56,19 @@ export function toggleLists(context) {
   
     if (newLogContent.trim() !== '') {
       const timestamp = new Date().toLocaleString();
+  
+      let logIdCounter = localStorage.getItem('logIdCounter');
+      if (!logIdCounter) {
+        logIdCounter = 1;
+      } else {
+        logIdCounter = parseInt(logIdCounter);
+      }
+  
+      const newLogId = logIdCounter;
+      localStorage.setItem('logIdCounter', logIdCounter + 1);
+  
       context.logs.push({
-        id: context.logIdCounter++,
+        id: newLogId,
         content: newLogContent,
         list: listNumber,
         done: false,
@@ -62,6 +80,7 @@ export function toggleLists(context) {
         highlightedGreen: false,
         isTask: false
       });
+  
       saveData(context);
     }
   }
