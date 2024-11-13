@@ -1,67 +1,97 @@
 <template>
-  <div id="app">
-    <!-- Main panel for listing tasks with delete buttons -->
-    <div class="main-panel">
-      <h2>All Tasks</h2>
-      <ul>
-        <li v-for="task in allTasks" :key="task.id">
-          <span>{{ task.title }} ({{ task.type }})</span>
-          <button @click="deleteTask(task)" class="delete-btn">Delete</button>
-        </li>
-      </ul>
-    </div>
-    <div class="kanban-container">
-      <div class="kanban-board">
-        <div
-          v-for="column in columns"
-          :key="column.title"
-          class="kanban-column"
-        >
-          <p class="column-title">{{ column.title }}</p>
-          
-          <!-- Draggable tasks within each column -->
-          <draggable
-            v-model="column.tasks"
-            :animation="200"
-            ghost-class="ghost-card"
-            group="tasks"
-            item-key="id"
-          >
-            <template #item="{ element: task }">
-              <task-card
-                :task="task"
-                class="task-card"
-              ></task-card>
-            </template>
-          </draggable>
-          
-          <!-- Add Task button only for Backlog column -->
-          <button 
-            v-if="column.title === 'Backlog'" 
-            @click="addTask(column)" 
-            class="add-task-btn"
-          >
-            Add Task
-          </button>
+  <div class="app">
+    <h1 class="app-title">Vue App</h1>
+    <div class="separator"></div>
+    <div class="panel-container">
+      <!-- Left Panel (Control Panel) -->
+      <div class="left-panel">
+        <div class="control-panel">
+          <h2>Control Panel</h2>
+          <div class="select-wrapper">
+            <select v-model="selectedLog">
+              <option v-for="(log, index) in currentList" :key="index" :value="log">{{ log.content }}</option>
+            </select>
+            <div class="selected-list">{{ selectedVariableList }}</div>
+          </div>
+          <button @click="addTask(selectedLog)" class="highlight-button">Add Task</button>
+          <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
+          <LogComments :log="selectedLog" />
+        </div>
+      </div>
+
+      <!-- Center Panel (Kanban Board) -->
+      <div class="center-panel">
+        <div class="kanban-container">
+          <div class="kanban-board">
+            <!-- Loop through columns and render them in the center panel -->
+            <div
+              v-for="column in columns"
+              :key="column.title"
+              class="kanban-column"
+            >
+              <p class="column-title">{{ column.title }}</p>
+
+              <!-- Draggable tasks within each column -->
+              <draggable
+                v-model="column.tasks"
+                :animation="200"
+                ghost-class="ghost-card"
+                group="tasks"
+                item-key="id"
+              >
+                <template #item="{ element: task }">
+                  <task-card :task="task" class="task-card"></task-card>
+                </template>
+              </draggable>
+
+              <!-- Add Task button only for Backlog column -->
+              <!-- <button 
+                v-if="column.title === 'Backlog'" 
+                @click="addTask(column)" 
+                class="add-task-btn"
+              >
+                Add Task
+              </button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Panel (Router Panel) -->
+      <div class="right-panel">
+        <div class="router-panel">
+          <h2>Router Panel</h2>
+          <button @click="$router.push('/')" class="goto-item-button">Dashboard</button>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- MainDisclaimer component -->
+  <MainDisclaimer />
 </template>
+
 
 <script>
 import draggable from "vuedraggable";
 import TaskCard from "../components/TaskCard.vue";
+import MainDisclaimer from "../components/MainDisclaimer.vue";
+import {
+  toggleLists,
+} from '../js/logMethods.js';
 
 export default {
   name: "App",
   components: {
     TaskCard,
     draggable,
+    MainDisclaimer
   },
   data() {
     return {
       columns: this.loadColumnsFromLocalStorage(), // Load columns from localStorage
+      selectedLog: null,
+      selectedList: 1,
     };
   },
   created() {
@@ -75,6 +105,18 @@ export default {
     // Get all tasks across all columns for the main panel
     allTasks() {
       return this.columns.flatMap(column => column.tasks);
+    },
+    currentList() {
+      return this.logs.filter(log => log.list === this.selectedList);
+    },
+    selectedVariableList() {
+      return this.selectedList;
+    },
+    list1() {
+      return this.logs.filter(log => log.list === 1);
+    },
+    list2() {
+      return this.logs.filter(log => log.list === 2);
     },
   },
   methods: {
@@ -91,6 +133,9 @@ export default {
           { title: "Done", tasks: [] }
         ];
       }
+    },
+    toggleLists() {
+      toggleLists(this);
     },
     
     // Map logs to the correct Kanban columns based on their 'list' property
@@ -124,7 +169,7 @@ export default {
     },
 
     // Add a new task to the column
-    addTask(column) {
+    addTask() {
       const title = prompt("Enter task title:");
       const type = prompt("Enter task type:");
 
@@ -135,7 +180,7 @@ export default {
           date: new Date().toLocaleDateString(),
           type: type,
         };
-        column.tasks.push(newTask);
+        this.columns[0].tasks.push(newTask);
         this.saveColumnsToLocalStorage(); // Save changes to localStorage
       } else {
         alert("Both title and type are required!");
@@ -178,6 +223,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* Kanban board with multiple columns */
@@ -192,8 +238,8 @@ export default {
   background-color: #e3e6e8;
   border-radius: 6px;
   padding: 16px;
-  min-width: 250px;
-  max-width: 250px;
+  min-width: 230px;
+  max-width: 230px;
 }
 
 /* Title of each column */
