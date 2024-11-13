@@ -13,6 +13,7 @@
               <div class="selected-list">{{ selectedVariableList }}</div>
             </div>
             <button @click="toggleHighlightRed(selectedLog)" class="highlight-button">Toggle Red</button>
+            <button @click="toggleHighlightOrange(selectedLog)" class="highlight-button">Toggle Orange</button>
             <button @click="toggleHighlightGreen(selectedLog)" class="highlight-button">Toggle Green</button>
             <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
             <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
@@ -32,7 +33,7 @@
             <h2 class="list-title">Log List</h2>
             <ul class="log-list">
               <li v-for="(log, index) in list1" :key="index" class="log-item">
-                <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
+                <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-orange': log.highlightedOrange, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
                 <button class="remove-button" @click="deleteLog(log)">Remove</button>
               </li>
             </ul>
@@ -47,7 +48,7 @@
             <h2 class="list-title">Log List</h2>
             <ul class="log-list">
               <li v-for="(log, index) in list2" :key="'second-' + index" class="log-item">
-                <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
+                <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-orange': log.highlightedOrange, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
                 <button class="remove-button" @click="deleteLog(log)">Remove</button>
               </li>
             </ul>
@@ -106,6 +107,7 @@ export default {
           extraInfo: 'Additional information',
           timestamp: new Date().toISOString(),
           highlightedRed: false,
+          highlightedOrange: false,
           highlightedGreen: false,
           isTask: false
         },
@@ -196,6 +198,7 @@ export default {
           extraInfo: "",
           timestamp: timestamp,
           highlightedRed: false,
+          highlightedOrange: false,
           highlightedGreen: false,
           isTask: false
         });
@@ -214,16 +217,27 @@ export default {
       if (log) {
         log.highlightedRed = !log.highlightedRed;
         if (log.highlightedRed) {
+          log.highlightedOrange = false;
           log.highlightedGreen = false;
         }
         this.saveData();
       }
     },
-
+    toggleHighlightOrange(log) {
+      if (log) {
+        log.highlightedOrange = !log.highlightedOrange;
+        if (log.highlightedOrange) {
+          log.highlightedRed = false;
+          log.highlightedGreen = false;
+        }
+        this.saveData();
+      }
+    },
     toggleHighlightGreen(log) {
       if (log) {
         log.highlightedGreen = !log.highlightedGreen;
         if (log.highlightedGreen) {
+          log.highlightedOrange = false;
           log.highlightedRed = false;
         }
         this.saveData();
@@ -236,6 +250,11 @@ export default {
 <style scoped>
 .highlight-red {
   background-color: #9c2727;
+  color: white;
+  border-radius: 3px;
+}
+.highlight-orange {
+  background-color: #ea865c;
   color: white;
   border-radius: 3px;
 }
