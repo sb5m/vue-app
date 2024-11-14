@@ -246,7 +246,7 @@ export default {
         case "Done":
           return 4;
         default:
-          return 1; // Default to Backlog if no match
+          return 1;
       }
     },
 

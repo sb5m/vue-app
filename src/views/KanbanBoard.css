@@ -8,7 +8,6 @@ body {
   color: var(--textColor);
 }
 
-/* Container for the Kanban board */
 .kanban-container {
   flex: 1;
   display: flex;
@@ -17,14 +16,12 @@ body {
   justify-content: center;
 }
 
-/* Kanban board with multiple columns */
 .kanban-board {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
 }
 
-/* Each column in the Kanban board */
 .kanban-column {
   background-color: #e3e6e8;
   border-radius: 6px;
@@ -33,7 +30,6 @@ body {
   max-width: 230px;
 }
 
-/* Title of each column */
 .column-title {
   font-weight: bold;
   font-size: 16px;
@@ -41,19 +37,16 @@ body {
   margin-bottom: 12px;
 }
 
-/* Style for individual task cards */
 .task-card {
   margin-top: 8px;
 }
 
-/* Ghost card that shows up during drag */
 .ghost-card {
   opacity: 0.5;
   background-color: #d1d8df;
   border: 1px dashed #333;
 }
 
-/* Style for the Add Task button */
 .add-task-btn {
   margin-top: 12px;
   padding: 8px 16px;
@@ -68,7 +61,6 @@ body {
   background-color: #45a049;
 }
 
-/* Main panel for listing tasks */
 .main-panel {
   width: 300px;
   margin-top: 40px;

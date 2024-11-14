@@ -44,7 +44,6 @@
   </script>
   
   <style scoped>
-  /* Styling for the task card container */
   .task-card-content {
     background-color: white;
     padding: 12px;
@@ -53,28 +52,24 @@
     border: 1px solid white;
   }
   
-  /* Header of the task card */
   .task-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   
-  /* Task title text */
   .task-title {
     font-weight: bold;
     font-size: 14px;
     color: #555;
   }
   
-  /* Avatar image */
   .task-avatar {
     width: 24px;
     height: 24px;
     border-radius: 50%;
   }
   
-  /* Footer of the task card */
   .task-footer {
     display: flex;
     justify-content: space-between;
@@ -82,7 +77,6 @@
     margin-top: 10px;
   }
   
-  /* Task date text */
   .task-date {
     font-size: 12px;
     color: #888;
