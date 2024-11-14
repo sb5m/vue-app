@@ -63,6 +63,7 @@
       <div class="right-panel">
         <div class="router-panel">
           <h2>Router Panel</h2>
+          <button @click="$router.push('/item')" class="goto-item-button">Go to Item</button>
           <button @click="$router.push('/')" class="goto-item-button">Dashboard</button>
         </div>
       </div>

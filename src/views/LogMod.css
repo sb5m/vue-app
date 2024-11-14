@@ -11,9 +11,11 @@ body {
 
 .log-details {
   max-width: 800px;
+  min-width: 800px;
   margin-left: auto;
   margin-right: auto;
   padding: 20px;
+  justify-content: center;
 }
 
 .log-details h2 {
