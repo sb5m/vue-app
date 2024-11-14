@@ -10,7 +10,7 @@ body {
 
 /* Container for the Kanban board */
 .kanban-container {
-  flex: 1; /* Takes up remaining space */
+  flex: 1;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -70,7 +70,7 @@ body {
 
 /* Main panel for listing tasks */
 .main-panel {
-  width: 300px; /* Fixed width for the main panel */
+  width: 300px;
   margin-top: 40px;
   padding: 20px;
   background-color: #ffffff;
