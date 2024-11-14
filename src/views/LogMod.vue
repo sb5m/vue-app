@@ -34,9 +34,8 @@
       <div v-else>
         <p>No log selected.</p>
       </div>
-      <router-link to="/" class="goto-ini-link">
-        <button class="goto-ini-button">Go to Test</button>
-      </router-link>
+      <button @click="$router.push('/')" class="goto-item-button">Dashboard</button>
+      <button @click="$router.push('/kanban')" class="goto-item-button">Kanban Board</button>
     </div>
 </template>
 

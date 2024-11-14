@@ -21,14 +21,14 @@ export function checkTasks(logs) {
         const confirmed = window.confirm(confirmMessage);
         if (confirmed) {
           console.log("User confirmed to continue.");
-          return { ...log, isTask: false }; // Create a new log object with isTask set to false
+          return { ...log, isTask: false };
         } else {
           console.log("User canceled the operation.");
-          return log; // Return original log if the user cancels
+          return log;
         }
       }
     }
-    return log; // Return original log if it's not a task
+    return log;
   });
 
 

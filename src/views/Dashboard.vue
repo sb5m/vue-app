@@ -80,6 +80,7 @@ import {
   deleteLog,
   moveUp,
   moveDown,
+  initializeLogs,
   addLog,
   doneLog,
   saveData,
@@ -94,6 +95,7 @@ import {
  * @property {string} content
  * @property {number} list
  * @property {boolean} done
+ * @property {number} status
  * @property {string} extraInfo
  * @property {string} timestamp
  * @property {boolean} highlightedRed
@@ -117,6 +119,7 @@ export default {
           content: 'This is a logger test',
           list: null,
           done: false,
+          status: 1,
           extraInfo: 'Additional information',
           timestamp: new Date().toISOString(),
           highlightedRed: false,
@@ -133,6 +136,8 @@ export default {
     };
   },
   created() {
+    initializeLogs();
+    
     const storedLogs = localStorage.getItem(this.storageKey);
     if (storedLogs) {
       this.logs = JSON.parse(storedLogs);
