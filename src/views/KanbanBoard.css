@@ -19,15 +19,17 @@ body {
 .kanban-board {
   display: flex;
   gap: 16px;
-  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: stretch;
+  flex: 1;
 }
 
 .kanban-column {
   background-color: #e3e6e8;
   border-radius: 6px;
   padding: 16px;
-  min-width: 230px;
-  max-width: 230px;
+  display: flex;
+  flex: 1;
 }
 
 .column-title {
@@ -62,8 +64,9 @@ body {
 }
 
 .main-panel {
-  width: 300px;
-  margin-top: 40px;
+  display: flex;
+  /* width: 300px;
+  margin-top: 40px; */
   padding: 20px;
   background-color: #ffffff;
   border-radius: 6px;
