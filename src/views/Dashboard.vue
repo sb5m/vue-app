@@ -196,20 +196,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.highlight-red {
-  background-color: #9c2727;
-  color: white;
-  border-radius: 3px;
-}
-.highlight-orange {
-  background-color: #ea865c;
-  color: white;
-  border-radius: 3px;
-}
-.highlight-green {
-  background-color: #1d611d;
-  color: white;
-  border-radius: 3px;
-}
-</style>
+<style src="./Dashboard.css"></style>

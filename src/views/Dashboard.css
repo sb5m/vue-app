@@ -1,6 +1,4 @@
 body {
-  margin: 0;
-  padding: 40px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -39,14 +37,6 @@ body {
   display: flex;
   justify-content: space-between;
   max-width: calc(100% - 40px);
-}
-
-
-#app {
-  max-width: 1920px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px;
 }
 
 .panel-container {
@@ -149,9 +139,10 @@ body {
 }
 
 .log-class-list {
-  width: 48%;
-  min-width: 500px;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+  padding: 20px; 
 }
 
 .log-form {
@@ -283,5 +274,18 @@ body {
   height: 36px;
 }
 
-
-
+.highlight-red {
+  background-color: #9c2727;
+  color: white;
+  border-radius: 3px;
+}
+.highlight-orange {
+  background-color: #ea865c;
+  color: white;
+  border-radius: 3px;
+}
+.highlight-green {
+  background-color: #1d611d;
+  color: white;
+  border-radius: 3px;
+}
