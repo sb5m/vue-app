@@ -28,7 +28,7 @@
             <div
               v-for="column in columns"
               :key="column.title"
-              class="kanban-column"
+              class="kanban-item"
             >
               <p class="column-title">{{ column.title }}</p>
 

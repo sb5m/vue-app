@@ -24,11 +24,12 @@ body {
   flex: 1;
 }
 
-.kanban-column {
+.kanban-item {
   background-color: #e3e6e8;
   border-radius: 6px;
   padding: 16px;
   display: flex;
+  flex-direction: column;
   flex: 1;
 }
 
