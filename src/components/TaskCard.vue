@@ -4,7 +4,7 @@
         <p class="task-title">{{ task.title }}</p>
         <img
           class="task-avatar"
-          src="https://pickaface.net/gallery/avatar/unr_sample_161118_2054_ynlrg.png"
+          src="../assets/rac.png"
           alt="Avatar"
         />
       </div>
@@ -72,8 +72,8 @@
   }
   
   .task-avatar {
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
   }
   
