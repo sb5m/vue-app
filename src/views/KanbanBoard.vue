@@ -15,7 +15,7 @@
           </div>
           <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
           <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
-          <LogComments :log="selectedLog" />
+          <LogComments />
         </div>
       </div>
 
@@ -69,6 +69,7 @@
 <script>
 import draggable from "vuedraggable";
 import TaskCard from "../components/TaskCard.vue";
+import LogComments from '../components/LogComments.vue';
 import MainDisclaimer from "../components/MainDisclaimer.vue";
 import {
   deleteLog,
@@ -80,6 +81,7 @@ export default {
   components: {
     TaskCard,
     draggable,
+    LogComments,
     MainDisclaimer
   },
   data() {

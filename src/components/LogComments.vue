@@ -10,12 +10,6 @@
 
 <script>
 export default {
-  props: {
-    log: {
-      type: String,
-      required: true
-    }
-  },
   methods: {
     downloadAllLogs() {
       const logsData = localStorage.getItem('Logs');

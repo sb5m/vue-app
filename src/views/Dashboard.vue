@@ -19,7 +19,7 @@
             <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
             <button @click="moveUp(selectedLog)" class="move-button">Move Up</button>
             <button @click="moveDown(selectedLog)" class="move-button">Move Down</button>
-            <LogComments :log="selectedLog" />
+            <LogComments />
         </div>
       </div>
       <div class="center-panel">
