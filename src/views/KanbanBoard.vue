@@ -14,7 +14,7 @@
             <div class="selected-list">{{ selectedVariableList }}</div>
           </div>
           <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
-          <button @click="addTask(selectedLog)" class="highlight-button">Add Task</button>
+          <!-- <button @click="addTask(selectedLog)" class="highlight   -button">Add Task</button> -->
           <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
           <LogComments :log="selectedLog" />
         </div>
@@ -106,21 +106,11 @@ export default {
     }
   },
   computed: {
-    // Get all tasks across all columns for the main panel
-    allTasks() {
-      return this.columns.flatMap(column => column.tasks);
-    },
     currentList() {
       return this.logs.filter(log => log.list === this.selectedList);
     },
     selectedVariableList() {
       return this.selectedList;
-    },
-    list1() {
-      return this.logs.filter(log => log.list === 1);
-    },
-    list2() {
-      return this.logs.filter(log => log.list === 2);
     },
   },
   methods: {
@@ -180,43 +170,6 @@ export default {
           this.columns[3].tasks.push(task); // Done
         }
       });
-    },
-
-    addTask() {
-      const title = prompt("Enter task title:");
-      const type = prompt("Enter task type:");
-
-      if (title && type) {
-        const newTask = {
-          id: Date.now(),
-          content: title,
-          list: 1,
-          done: false,
-          extraInfo: "",
-          timestamp: new Date().toLocaleString(),
-          highlightedRed: false,
-          highlightedOrange: false,
-          highlightedGreen: false,
-          isTask: false
-        };
-        
-        // Add task to the "Backlog" column
-        this.columns[0].tasks.push({
-          id: newTask.id,
-          title: newTask.content,
-          date: newTask.timestamp,
-          type: type,
-        });
-
-        // Add new task to logs and save to localStorage
-        this.logs.push(newTask);
-        this.saveData();
-
-        // Save columns data to localStorage
-        this.saveColumnsToLocalStorage();
-      } else {
-        alert("Both title and type are required!");
-      }
     },
 
     updateTaskStatus(event, column) {
