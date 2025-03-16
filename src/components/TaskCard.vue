@@ -10,7 +10,8 @@
       </div>
       <div class="task-footer">
         <span class="task-date">{{ task.date }}</span>
-        <BadgeItem v-if="task.type" :color="badgeColor">{{ task.type }}</BadgeItem>
+        <BadgeItem v-if="task.isTask" :color="badgeColor.taskColor">{{ task.isTask }}</BadgeItem>
+        <BadgeItem v-if="task.type" :color="badgeColor.typeColor">{{ task.type }}</BadgeItem>
       </div>
     </div>
   </template>
@@ -31,14 +32,20 @@
     computed: {
       badgeColor() {
         const mappings = {
-          Design: "purple",
-          "Feature Request": "teal",
-          Backend: "blue",
-          QA: "green",
-          default: "teal",
+            Design: "purple",
+            Backend: "blue",
+            QA: "green",
+            "ToDo": "blue",
+            "Epic": "purple",
+            "Chaser": "green",
+            default: "teal"
         };
-        return mappings[this.task.type] || mappings.default;
-      },
+
+        return {
+            taskColor: mappings[this.task.isTask] || mappings.default,
+            typeColor: mappings[this.task.type] || mappings.default
+        };
+    }
     },
   };
   </script>

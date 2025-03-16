@@ -46,12 +46,15 @@ export function toggleLists(context) {
   
   export function addLog(context, listNumber) {
     let newLogContent = '';
+    let type = "Chaser";
     if (listNumber === 1) {
       newLogContent = context.newLog1;
       context.newLog1 = '';
+      type = "ToDo";
     } else if (listNumber === 2) {
       newLogContent = context.newLog2;
       context.newLog2 = '';
+      type = "Epic";
     }
   
     if (newLogContent.trim() !== '') {
@@ -66,7 +69,7 @@ export function toggleLists(context) {
   
       const newLogId = logIdCounter;
       localStorage.setItem('logIdCounter', logIdCounter + 1);
-  
+
       context.logs.push({
         id: newLogId,
         content: newLogContent,
@@ -78,7 +81,8 @@ export function toggleLists(context) {
         highlightedRed: false,
         highlightedOrange: false,
         highlightedGreen: false,
-        isTask: false
+        isTask: false,
+        type: type
       });
   
       saveData(context);

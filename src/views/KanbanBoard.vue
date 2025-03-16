@@ -14,7 +14,6 @@
             <div class="selected-list">{{ selectedVariableList }}</div>
           </div>
           <button @click="deleteLog(selectedLog)" class="delete-button">Delete</button>
-          <!-- <button @click="addTask(selectedLog)" class="highlight   -button">Add Task</button> -->
           <button @click="toggleLists" class="toggle-button">Toggle Lists</button>
           <LogComments :log="selectedLog" />
         </div>
@@ -42,18 +41,10 @@
                 @change="updateTaskStatus($event, column)"
               >
                 <template #item="{ element: task }">
-                  <task-card :task="task" class="task-card"></task-card>
+                  <TaskCard :task="task" class="task-card"></TaskCard>
                 </template>
               </draggable>
 
-              <!-- Add Task button only for Backlog column -->
-              <!-- <button 
-                v-if="column.title === 'Backlog'" 
-                @click="addTask(column)" 
-                class="add-task-btn"
-              >
-                Add Task
-              </button> -->
             </div>
           </div>
         </div>
@@ -152,12 +143,13 @@ export default {
           id: log.id,
           title: log.content,
           date: log.timestamp,
-          type: log.isTask ? 'Task' : 'Other',
+          isTask: log.isTask ? 'Task' : 'Other',
           done: log.done,
           status: log.status,
           highlightedRed: log.highlightedRed,
           highlightedOrange: log.highlightedOrange,
           highlightedGreen: log.highlightedGreen,
+          type: log.type
         };
 
         if (log.status === 1) {
