@@ -203,11 +203,6 @@ export default {
       }
     },
 
-    // Save columns data to localStorage
-    saveColumnsToLocalStorage() {
-      localStorage.setItem("columns", JSON.stringify(this.columns));
-    },
-
     // Save logs data to localStorage
     saveData() {
       localStorage.setItem("Logs", JSON.stringify(this.logs));
