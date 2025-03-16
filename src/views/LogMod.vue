@@ -45,13 +45,20 @@
       <button @click="$router.push('/')" class="goto-item-button">Dashboard</button>
       <button @click="$router.push('/kanban')" class="goto-item-button">Kanban Board</button>
     </div>
+
+  <!-- MainDisclaimer component -->
+  <MainDisclaimer />
 </template>
 
 <script>
 import './LogMod.css';
+import MainDisclaimer from "../components/MainDisclaimer.vue";
 
 export default {
   name: 'LogDetails',
+  components: {
+    MainDisclaimer
+  },
   data() {
     return {
       selectedLogId: null,
