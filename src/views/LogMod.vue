@@ -29,6 +29,14 @@
             <option :value="false">No</option>
           </select>
         </div>
+        <div>
+        <label for="type">What type of log is this?:</label>
+        <select id="type" v-model="log.type">
+          <option value="ToDo">ToDo</option>
+          <option value="Epic">Epic</option>
+          <option value="Chaser">Chaser</option>
+        </select>
+      </div>
         <button @click="saveLogChanges">Save Changes</button>
       </div>
       <div v-else>

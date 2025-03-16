@@ -89,20 +89,6 @@ import {
   toggleHighlightGreen
 } from '../js/logMethods.js';
 
-/**
- * @typedef {Object} Log
- * @property {number} id
- * @property {string} content
- * @property {number} list
- * @property {boolean} done
- * @property {number} status
- * @property {string} extraInfo
- * @property {string} timestamp
- * @property {boolean} highlightedRed
- * @property {boolean} highlightedGreen
- * @property {boolean} isTask
- */
-
 export default {
   name: 'App',
   components: {
@@ -113,21 +99,6 @@ export default {
     return {
       newLog1: '',
       newLog2: '',
-      defaultData: [
-        {
-          id: 0,
-          content: 'This is a logger test',
-          list: null,
-          done: false,
-          status: 1,
-          extraInfo: 'Additional information',
-          timestamp: new Date().toISOString(),
-          highlightedRed: false,
-          highlightedOrange: false,
-          highlightedGreen: false,
-          isTask: false
-        },
-      ],
       logs: [],
       storageKey: 'Logs',
       selectedLog: null,

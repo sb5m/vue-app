@@ -70,6 +70,22 @@ export function toggleLists(context) {
       const newLogId = logIdCounter;
       localStorage.setItem('logIdCounter', logIdCounter + 1);
 
+      /**
+       * @typedef {Object} Log
+       * @property {number} id
+       * @property {string} content
+       * @property {number} list
+       * @property {boolean} done
+       * @property {number} status
+       * @property {string} extraInfo
+       * @property {string} timestamp
+       * @property {boolean} highlightedRed
+       * @property {boolean} highlightedOrange
+       * @property {boolean} highlightedGreen
+       * @property {boolean} isTask
+       * @property {string} type
+       */
+
       context.logs.push({
         id: newLogId,
         content: newLogContent,
