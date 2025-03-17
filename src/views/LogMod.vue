@@ -48,8 +48,6 @@
           <div v-else>
             <p>No log selected.</p>
           </div>
-          <button @click="$router.push('/')" class="goto-item-button">Dashboard</button>
-          <button @click="$router.push('/kanban')" class="goto-item-button">Kanban Board</button>
         </div>
       </div>
 
