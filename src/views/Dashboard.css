@@ -25,12 +25,14 @@ body {
 
 .left-panel {
   justify-content: center;
-  flex: 1;
+  /* flex: 1; */
+  flex: 0 0 240px;
 }
 
 .right-panel {
   justify-content: center;
-  flex: 1;
+  /* flex: 1; */
+  flex: 0 0 240px;
 }
 
 .logs-container {
