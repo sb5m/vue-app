@@ -4,13 +4,18 @@ function showCustomPopup(message, duration = 15000) {
   // Create the popup container
   const popup = document.createElement('div');
   popup.innerText = message;
+  
+  // Style the popup
   popup.style.position = 'fixed';
-  popup.style.top = `${20 + popupCount * 60}px`; // Each popup is spaced 60px apart vertically
+  popup.style.top = `${20 + popupCount * 80}px`; // Each popup is spaced 80px apart vertically
   popup.style.right = '20px';
-  popup.style.padding = '10px 20px';
-  popup.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+  popup.style.padding = '20px 40px';
+  popup.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
   popup.style.color = '#fff';
   popup.style.borderRadius = '5px';
+  popup.style.border = '2px solid #487f85';
+  popup.style.minWidth = '15%';
+  popup.style.maxWidth = '15%';
   popup.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
   popup.style.zIndex = '1000';
   popup.style.transition = 'opacity 0.5s';
@@ -43,7 +48,7 @@ function removePopup(popup) {
     // Adjust positions of remaining pop-ups
     const remainingPopups = document.querySelectorAll('.custom-popup');
     remainingPopups.forEach((popup, index) => {
-      popup.style.top = `${20 + index * 60}px`;
+      popup.style.top = `${20 + index * 80}px`;
     });
   }, 500);
 }
