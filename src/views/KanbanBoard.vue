@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <h1 class="app-title">Vue App</h1>
+    <h1 class="app-title">KanbanVue</h1>
     <div class="separator"></div>
     <div class="panel-container">
       <!-- Left Panel (Control Panel) -->

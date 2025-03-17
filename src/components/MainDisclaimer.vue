@@ -8,7 +8,7 @@
 export default {
   data() {
     return {
-      disclaimerText: "Test app"
+      disclaimerText: "KanbanVue App. In development."
     };
   }
 };

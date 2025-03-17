@@ -21,7 +21,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory("/vue-app/"),
+  history: createWebHistory("/kanbanvue/"),
   routes
 });
 
