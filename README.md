@@ -1,18 +1,15 @@
-# vue-app
+# KanbanVue
 
-Simple logger app with routing and components to keep track of tasks.
+KanbanVue is a web app built using the Vuejs framework, specifically HTML, CSS and Javascript. It allows users to manage their tasks in a Jira-like environment. Tasks can be tracked in the landing page as simple todos or in a kanban board, organized depending on their status. The app can also notify the user of due tasks via custom notifications.
 
 ## Project setup
-```
-npm install -g @vue/cli
-```
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-vue serve
+npm run serve
 ```
 
 ### Build deployment
