@@ -58,8 +58,10 @@ export function toggleLists(context) {
     }
   
     if (newLogContent.trim() !== '') {
-      const timestamp = new Date().toLocaleString();
-  
+      const timestamp = new Date();
+      const dateTimestamp = new Date(timestamp.getTime()).toLocaleString();
+      const taskTimestamp = new Date(timestamp.getTime() + 4 * 60 * 60 * 1000).toLocaleString(); // default 4 hour deadline
+
       let logIdCounter = localStorage.getItem('logIdCounter');
       if (!logIdCounter) {
         logIdCounter = 1;
@@ -86,20 +88,37 @@ export function toggleLists(context) {
        * @property {string} type
        */
 
-      context.logs.push({
-        id: newLogId,
-        content: newLogContent,
-        list: listNumber,
-        done: false,
-        status: 1,
-        extraInfo: "",
-        timestamp: timestamp,
-        highlightedRed: false,
-        highlightedOrange: false,
-        highlightedGreen: false,
-        isTask: false,
-        type: type
-      });
+      if (listNumber === 1) {
+        context.logs.push({
+          id: newLogId,
+          content: newLogContent,
+          list: listNumber,
+          done: false,
+          status: 1,
+          extraInfo: "",
+          timestamp: taskTimestamp,
+          highlightedRed: false,
+          highlightedOrange: false,
+          highlightedGreen: false,
+          isTask: true,
+          type: type
+        });
+      } else if (listNumber === 2) {
+        context.logs.push({
+          id: newLogId,
+          content: newLogContent,
+          list: listNumber,
+          done: false,
+          status: 1,
+          extraInfo: "",
+          timestamp: dateTimestamp,
+          highlightedRed: false,
+          highlightedOrange: false,
+          highlightedGreen: false,
+          isTask: false,
+          type: type
+        });
+      }
   
       saveData(context);
     }

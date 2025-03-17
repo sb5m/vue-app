@@ -26,11 +26,11 @@
         <div class="logs-container">
           <div class="log-class-list">
             <form @submit.prevent="addLog(1)" class="log-form">
-              <label class="form-label">New Log</label>
+              <label class="form-label">New Task</label>
               <input v-model="newLog1" class="form-input" name="newLog" autocomplete="off" />
-              <button class="form-button">Add Log</button>
+              <button class="form-button">Add Task Log</button>
             </form>
-            <h2 class="list-title">Log List</h2>
+            <h2 class="list-title">Task Log List</h2>
             <ul class="log-list">
               <li v-for="(log, index) in list1" :key="index" class="log-item">
                 <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-orange': log.highlightedOrange, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
@@ -41,11 +41,11 @@
           </div>
           <div class="log-class-list">
             <form @submit.prevent="addLog(2)" class="log-form">
-              <label class="form-label">New Log</label>
+              <label class="form-label">New Epic</label>
               <input v-model="newLog2" class="form-input" name="newLog" autocomplete="off" />
-              <button class="form-button">Add Log</button>
+              <button class="form-button">Add Epic Log</button>
             </form>
-            <h2 class="list-title">Log List</h2>
+            <h2 class="list-title">Epic Log List</h2>
             <ul class="log-list">
               <li v-for="(log, index) in list2" :key="'second-' + index" class="log-item">
                 <span :class="{ done: log.done, 'highlight-red': log.highlightedRed, 'highlight-orange': log.highlightedOrange, 'highlight-green': log.highlightedGreen }" @click="doneLog(log)">{{ log.content }}</span>
